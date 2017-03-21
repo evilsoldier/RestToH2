@@ -25,16 +25,18 @@ public class Application {
 	@Bean
 	public CommandLineRunner setup(ItemRepository itemRepository, ItemInfoRepository itemInfoRepository) {
 		return (args) -> {
-			itemRepository.save(new Item("1", new Efc("EFC5", "1111111")));
-			itemRepository.save(new Item("2", new Efc("EFC5", "2222222")));
-			itemRepository.save(new Item("62900001", new Efc("EFC5", "2222222")));
+			itemRepository.save(new Item("1", new Efc("5", "1111111")));
+			itemRepository.save(new Item("2", new Efc("5", "2222222")));
+			itemRepository.save(new Item("62900001", new Efc("5", "2222222")));
 			
 			itemInfoRepository.save(new ItemInfo("111", "Y", "Y", "Y"));
-			itemInfoRepository.save(new ItemInfo("222", "Y", "N", "N"));
+			itemInfoRepository.save(new ItemInfo("222", "N", "N", "N"));
 			itemInfoRepository.save(new ItemInfo("333", "N", "N", "Y"));
+			itemInfoRepository.save(new ItemInfo("444", "N", "N", "Y"));
+			itemInfoRepository.save(new ItemInfo("555", "N", "Y", "Y"));
+			itemInfoRepository.save(new ItemInfo("666", "Y", "N", "N"));
 			
 			logger.info("The sample data has been generated");
-
 		};
 	}
 }

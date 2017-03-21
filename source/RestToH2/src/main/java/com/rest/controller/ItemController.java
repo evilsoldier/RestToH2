@@ -29,7 +29,7 @@ public class ItemController {
 		List<Item> items = itemService.getAllItems();
 
 		for (Item item : items) {
-			if (item.getItemId().equals(itemId) && "EFC5".equalsIgnoreCase(efcId)) {
+			if (item.getItemId().equals(itemId)) {
 				return item;
 			}
 		}
@@ -52,7 +52,8 @@ public class ItemController {
 		List<Item> items = itemService.getAllItems();
 
 		for (Item item : items) {
-			if (item.getItemId().equals(itemId) && "EFC5".equalsIgnoreCase(efcId)) {
+			if (item.getItemId().equals(itemId)) {
+				System.out.println("Deletede itemId: " + itemId);
 				itemService.deleteItem(itemId);
 				return new ResponseMessage("record deleted with itemId: " + itemId);
 			}
@@ -72,6 +73,7 @@ public class ItemController {
 			System.out.println(e.getMessage());
 		}
 		itemService.updateItem(item);
+		System.out.println("Updated/Created itemId: " + itemId);
 		return new ResponseMessage("updated/created item with itemId: " + item.getItemId());
 	}
 }
