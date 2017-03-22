@@ -1,5 +1,7 @@
 package com.rest;
 
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -17,6 +19,9 @@ import com.rest.velocity.ItemInfo;
 public class Application {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+	
+	ArrayList<Efc> efcs = new ArrayList<>();
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -25,9 +30,10 @@ public class Application {
 	@Bean
 	public CommandLineRunner setup(ItemRepository itemRepository, ItemInfoRepository itemInfoRepository) {
 		return (args) -> {
-			itemRepository.save(new Item("1", new Efc("5", "1111111")));
-			itemRepository.save(new Item("2", new Efc("5", "2222222")));
-			itemRepository.save(new Item("62900001", new Efc("5", "2222222")));
+			efcs.add(new Efc("5", "1111"));
+			itemRepository.save(new Item("1", efcs) );
+			itemRepository.save(new Item("2", efcs));
+			itemRepository.save(new Item("62900001", efcs));
 			
 			itemInfoRepository.save(new ItemInfo("111", "Y", "Y", "Y"));
 			itemInfoRepository.save(new ItemInfo("222", "N", "N", "N"));

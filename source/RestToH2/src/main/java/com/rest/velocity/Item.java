@@ -1,6 +1,7 @@
 package com.rest.velocity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,34 +9,21 @@ import javax.persistence.Id;
 @Entity
 public class Item implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -784121363114915838L;
 
 	@Id
-//	@GeneratedValue
-//	private Long id;
 	private String itemId;
-	private Efc efc;
+	private ArrayList<Efc> efcs;
 	
 	public Item() {
 		super();
 	}
 
-	public Item(String itemId, Efc efc) {
+	public Item(String itemId, ArrayList<Efc> efcs) {
 		super();
 		this.itemId = itemId;
-		this.efc = efc;
+		this.efcs = efcs;
 	}
-
-//	public Long getId() {
-//		return id;
-//	}
-//
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
 
 	public String getItemId() {
 		return itemId;
@@ -45,11 +33,11 @@ public class Item implements Serializable {
 		this.itemId = itemId;
 	}
 
-	public Efc getEfc() {
-		return efc;
+	public ArrayList<Efc> getEfcs() {
+		return efcs;
 	}
 
-	public void setEfc(Efc efc) {
-		this.efc = efc;
+	public void setEfcs(ArrayList<Efc> efcs) {
+		this.efcs = efcs;
 	}
 }
