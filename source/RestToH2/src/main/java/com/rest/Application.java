@@ -30,7 +30,11 @@ public class Application {
 	@Bean
 	public CommandLineRunner setup(ItemRepository itemRepository, ItemInfoRepository itemInfoRepository) {
 		return (args) -> {
-			efcs.add(new Efc("5", "1111"));
+			efcs.add(new Efc("5", "55555"));
+			efcs.add(new Efc("4", "44444"));
+			efcs.add(new Efc("3", "33333"));
+			efcs.add(new Efc("2", "22222"));
+			efcs.add(new Efc("1", "11111"));
 			itemRepository.save(new Item("1", efcs) );
 			itemRepository.save(new Item("2", efcs));
 			itemRepository.save(new Item("62900001", efcs));
