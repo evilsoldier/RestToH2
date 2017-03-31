@@ -1,6 +1,7 @@
 package com.rest.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rest.repository.ItemService;
+import com.rest.velocity.Efc;
 import com.rest.velocity.Item;
 
 import response.ResponseMessage;
 
 @RestController
-@RequestMapping("/efc")
+@RequestMapping("/")
 public class ItemController {
 
 	@Autowired
 	ItemService itemService;
 
 	// Read EFC Details by Item ID and EFC ID
-	@RequestMapping(value = "/{item_id}/{efc_id}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/efc-rest/velocity/{item_id}/{efc_id}", method = RequestMethod.GET, produces = "application/json")
 	public Item getItem(@PathVariable(value = "item_id") String itemId, @PathVariable(value = "efc_id") String efcId) {
 		List<Item> items = itemService.getAllItems();
 
@@ -33,11 +35,11 @@ public class ItemController {
 				return item;
 			}
 		}
-		return null;
+		return new Item(itemId, new ArrayList<>());
 	}
 
 	// Read all items from efc
-	@RequestMapping(value = "/velocity/{efc_id}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/efc-rest/velocity/{efc_id}", method = RequestMethod.GET, produces = "application/json")
 	public List<Item> getAllItems(@PathVariable(value = "efc_id") String efcId) {
 		if ("EFC5".equalsIgnoreCase(efcId)) {
 			return itemService.getAllItems();
@@ -46,8 +48,8 @@ public class ItemController {
 	}
 
 	// Delete EFC Details
-	@RequestMapping(value = "/velocity/{item_id}/{efc_id}", method = RequestMethod.DELETE, consumes = "application/json", produces = "application/json")
-	public ResponseMessage deleteItem(@RequestBody String json, @PathVariable(value = "item_id") String itemId,
+	@RequestMapping(value = "/efc-rest/velocity/{item_id}/{efc_id}", method = RequestMethod.DELETE, produces = "application/json")
+	public ResponseMessage deleteItem(@PathVariable(value = "item_id") String itemId,
 			@PathVariable(value = "efc_id") String efcId) {
 		List<Item> items = itemService.getAllItems();
 
@@ -62,16 +64,19 @@ public class ItemController {
 	}
 
 	// Insert / Update EFC Details
-	@RequestMapping(value = "/velocity/{item_id}/{efc_id}", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/efc-rest/velocity/{item_id}/{efc_id}/{velocity}", method = RequestMethod.POST, produces = "application/json")
 	public ResponseMessage updateItem(@PathVariable(value = "item_id") String itemId,
-			@PathVariable(value = "efc_id") String efcId, @RequestBody String json) {
-		Item item = new Item();
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			item = mapper.readValue(json, Item.class);
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
+			@PathVariable(value = "efc_id") String efcId, @PathVariable(value = "velocity") String velocity) {
+		ArrayList<Efc> efcs = new ArrayList<>();
+		efcs.add(new Efc(efcId, velocity));
+		Item item = new Item(itemId, efcs);
+
+		// ObjectMapper mapper = new ObjectMapper();
+		// try {
+		// item = mapper.readValue(json, Item.class);
+		// } catch (IOException e) {
+		// System.out.println(e.getMessage());
+		// }
 		itemService.updateItem(item);
 		System.out.println("Updated/Created itemId: " + itemId);
 		return new ResponseMessage("updated/created item with itemId: " + item.getItemId());
