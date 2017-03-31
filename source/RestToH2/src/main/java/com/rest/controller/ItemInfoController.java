@@ -13,13 +13,13 @@ import com.rest.repository.ItemInfoService;
 import com.rest.velocity.ItemInfo;
 
 @RestController
-@RequestMapping("/efc/iteminfo")
+@RequestMapping("/")
 public class ItemInfoController {
 
 	@Autowired
 	ItemInfoService service;
 
-	@RequestMapping(value = "/{itm_id}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/efc-rest/velocity/iteminfo/{itm_id}", method = RequestMethod.GET, produces = "application/json")
 	public ItemInfo getItemInfo(@PathVariable(value = "itm_id") String itm_id, HttpServletRequest request) {
 		
 		SecurityContextHolder.getContext().getAuthentication();
