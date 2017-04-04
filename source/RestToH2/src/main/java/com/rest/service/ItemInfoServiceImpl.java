@@ -20,7 +20,7 @@ public class ItemInfoServiceImpl implements ItemInfoService {
 		List<ItemInfo> allItemInfos = repository.findAll();
 
 		for (ItemInfo itemInfo : allItemInfos) {
-			if (itemInfo.getItm_id().equals(itm_id)) {
+			if (itemInfo.getItemID().equals(itm_id)) {
 				return itemInfo;
 			}
 		}

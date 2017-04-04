@@ -1,7 +1,7 @@
 package com.rest.velocity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,13 +13,13 @@ public class Item implements Serializable {
 
 	@Id
 	private String itemId;
-	private ArrayList<Efc> efcs;
+	private HashSet<Efc> efcs;
 	
 	public Item() {
 		super();
 	}
 
-	public Item(String itemId, ArrayList<Efc> efcs) {
+	public Item(String itemId, HashSet<Efc> efcs) {
 		super();
 		this.itemId = itemId;
 		this.efcs = efcs;
@@ -33,11 +33,11 @@ public class Item implements Serializable {
 		this.itemId = itemId;
 	}
 
-	public ArrayList<Efc> getEfcs() {
+	public HashSet<Efc> getEfcs() {
 		return efcs;
 	}
 
-	public void setEfcs(ArrayList<Efc> efcs) {
+	public void setEfcs(HashSet<Efc> efcs) {
 		this.efcs = efcs;
 	}
 }
