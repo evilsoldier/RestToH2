@@ -1,0 +1,7 @@
+keytool -genkey -alias kohls -keyalg RSA -keysize 2048 -validity 700 -keypass pa$$w0rd -storepass pa$$w0rd -keystore kohls_keystore.jks
+
+keytool -exportcert -keystore kohls_keystore.jks -alias kohls -file kohls_keystore.cer         <- export the public cert into file (whithout the private one)
+
+keytool -importcert -file kohls_keystore.cer -keystore kohls_public.jks -alias kohls           <- import the public cert into new keystore
+
+keytool -exportcert -keystore kohls_keystore.jks -alias kohls -file kohls_public.cer            <- as administrator!

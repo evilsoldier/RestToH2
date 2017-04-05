@@ -1,14 +1,19 @@
 package com.rest;
 
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 
+import org.apache.catalina.Context;
+import org.apache.catalina.connector.Connector;
+import org.apache.tomcat.util.descriptor.web.SecurityCollection;
+import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -58,20 +63,48 @@ public class Application extends SpringBootServletInitializer {
 			itemInfoRepository.save(new ItemInfo("91218652", "H10 JLO GLOW SET", "pretty high", null, null, null, null,
 					null, null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2",
 					"N", "N", null, null));
-			
-			itemInfoRepository.save(new ItemInfo("111", "H10 JLO GLOW SET", "pretty high", null, null, null, null,
-					null, null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2",
-					"N", "N", null, null));
-			
-			itemInfoRepository.save(new ItemInfo("222", "H10 JLO GLOW SET", "pretty high", null, null, null, null,
-					null, null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2",
-					"N", "N", null, null));
-			
-			itemInfoRepository.save(new ItemInfo("333", "H10 JLO GLOW SET", "pretty high", null, null, null, null,
-					null, null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2",
-					"N", "N", null, null));
+
+			itemInfoRepository.save(new ItemInfo("111", "H10 JLO GLOW SET", "pretty high", null, null, null, null, null,
+					null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2", "N",
+					"N", null, null));
+
+			itemInfoRepository.save(new ItemInfo("222", "H10 JLO GLOW SET", "pretty high", null, null, null, null, null,
+					null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2", "N",
+					"N", null, null));
+
+			itemInfoRepository.save(new ItemInfo("333", "H10 JLO GLOW SET", "pretty high", null, null, null, null, null,
+					null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2", "N",
+					"N", null, null));
 
 			logger.info("The sample data has been generated");
 		};
 	}
+	
+//	@Bean
+	public EmbeddedServletContainerFactory servletContainer() {
+		TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
+			@Override
+			protected void postProcessContext(Context context) {
+				SecurityConstraint securityConstraint = new SecurityConstraint();
+				securityConstraint.setUserConstraint("CONFIDENTIAL");
+				SecurityCollection collection = new SecurityCollection();
+				collection.addPattern("/*");
+				securityConstraint.addCollection(collection);
+				context.addConstraint(securityConstraint);
+			}
+		};
+
+		tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
+		return tomcat;
+	}
+
+	 private Connector initiateHttpConnector() {
+		    Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+		    connector.setScheme("http");
+		    connector.setPort(8080);
+		    connector.setSecure(false);
+		   connector.setRedirectPort(8888);
+		    
+		    return connector;
+		  }
 }
