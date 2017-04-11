@@ -2,12 +2,16 @@ package com.rest;
 
 import java.util.HashSet;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
+
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +20,6 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import com.rest.repository.ItemInfoRepository;
 import com.rest.repository.ItemRepository;
@@ -24,28 +27,32 @@ import com.rest.velocity.Efc;
 import com.rest.velocity.Item;
 import com.rest.velocity.ItemInfo;
 
+import io.hawt.config.ConfigFacade;
+import io.hawt.springboot.EnableHawtio;
+import io.hawt.springboot.HawtPlugin;
+import io.hawt.springboot.PluginService;
+import io.hawt.system.ConfigManager;
+import io.hawt.web.AuthenticationFilter;
+
 @SpringBootApplication
+@EnableHawtio
 public class Application extends SpringBootServletInitializer {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+	
+	@Autowired
+	private ServletContext servletContext;
 
 	HashSet<Efc> efcs = new HashSet<>();
 
 	public static void main(String[] args) {
+		System.setProperty(AuthenticationFilter.HAWTIO_AUTHENTICATION_ENABLED, "false");
 		SpringApplication.run(Application.class, args);
 	}
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(Application.class);
-	}
-
-	@Bean
-	ServletContextTemplateResolver templateResolver() {
-		ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
-		resolver.setSuffix(".jsp");
-		resolver.setPrefix("/webapp/");
-		return resolver;
 	}
 
 	@Bean
@@ -107,4 +114,44 @@ public class Application extends SpringBootServletInitializer {
 		    
 		    return connector;
 		  }
+	 @PostConstruct
+		public void init() {
+			final ConfigManager configManager = new ConfigManager();
+			configManager.init();
+			servletContext.setAttribute("ConfigManager", configManager);
+		}
+
+		/**
+		 * Loading an example plugin
+		 * @return
+		 */
+		@Bean
+		public HawtPlugin samplePlugin() {
+			return new HawtPlugin("sample-plugin", "/hawtio/plugins", "", new String[] { "sample-plugin/js/sample-plugin.js" });
+		}
+		
+		/**
+		 * Set things up to be in offline mode
+		 * @return
+		 * @throws Exception
+		 */
+		@Bean
+		public ConfigFacade configFacade() throws Exception {
+			ConfigFacade config = new ConfigFacade() {
+				public boolean isOffline() {
+					return true;
+				}
+			};
+			config.init();
+			return config;
+		}
+		
+		/**
+		 * Register rest endpoint to handle requests for /plugin, and return all registered plugins.
+		 * @return
+		 */
+		@Bean
+		public PluginService pluginService(){
+			return new PluginService();
+		}
 }
