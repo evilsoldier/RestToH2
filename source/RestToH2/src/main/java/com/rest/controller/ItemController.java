@@ -3,6 +3,7 @@ package com.rest.controller;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,10 @@ import com.rest.velocity.Item;
 
 import response.ResponseMessage;
 
+/**
+ * @author Georgi Trendafilov
+ * evilsoldier@abv.bg
+ */
 @RestController
 @RequestMapping("/")
 public class ItemController {
@@ -22,7 +27,12 @@ public class ItemController {
 	@Autowired
 	ItemService itemService;
 
-	// Read EFC Details by Item ID and EFC ID
+	/**
+	 * Read efc details by given itemId and efcId.
+	 * @param itemId
+	 * @param efcId
+	 * @return item instance of {@link Item}
+	 */
 	@RequestMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}", method = RequestMethod.GET, produces = "application/json")
 	public Item getItem(@PathVariable(value = "item_id") String itemId, @PathVariable(value = "efc_id") String efcId) {
 		List<Item> items = itemService.getAllItems();
@@ -41,7 +51,11 @@ public class ItemController {
 		return new Item(itemId, new HashSet<>());
 	}
 
-	// Read all efc/velocities by ItemId
+	/**
+	 * Read all efc/velocities by given itemId.
+	 * @param itemId
+	 * @return item instance of {@link Item}
+	 */
 	@RequestMapping(value = "/efc-velocity-rest/efcs/{item_id}", method = RequestMethod.GET, produces = "application/json")
 	public Item getAllEfcs(@PathVariable(value = "item_id") String itemId) {
 		List<Item> items = itemService.getAllItems();
@@ -53,7 +67,11 @@ public class ItemController {
 		return new Item(itemId, new HashSet<>());
 	}
 
-	// Read all items from efc
+	/**
+	 * Read all items from efc by given efcId.
+	 * @param efcId
+	 * @return listOf items instance of {@link Item}
+	 */
 	@RequestMapping(value = "/efc-velocity-rest/{efc_id}", method = RequestMethod.GET, produces = "application/json")
 	public List<Item> getAllItems(@PathVariable(value = "efc_id") String efcId) {
 		if ("EFC5".equalsIgnoreCase(efcId)) {
@@ -62,7 +80,12 @@ public class ItemController {
 		return null;
 	}
 
-	// Delete EFC Details
+	/**
+	 * Delete efc details by given itemId and efcId.
+	 * @param itemId
+	 * @param efcId
+	 * @return httpStatus instance of {@link HttpStatus}
+	 */
 	@RequestMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}", method = RequestMethod.DELETE, produces = "application/json")
 	public ResponseMessage deleteItem(@PathVariable(value = "item_id") String itemId,
 			@PathVariable(value = "efc_id") String efcId) {
@@ -83,7 +106,13 @@ public class ItemController {
 		return new ResponseMessage("record not found with itemId: " + itemId);
 	}
 
-	// Insert / Update EFC Details
+	/**
+	 * Insert or Update efc Details by given itemId, efcId and velocity value.
+	 * @param itemId
+	 * @param efcId
+	 * @param velocity
+	 * @return httpStatus instance of {@link HttpStatus}
+	 */
 	@RequestMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}/{velocity}", method = RequestMethod.POST, produces = "application/json")
 	public ResponseMessage updateItem(@PathVariable(value = "item_id") String itemId,
 			@PathVariable(value = "efc_id") String efcId, @PathVariable(value = "velocity") String velocity) {
