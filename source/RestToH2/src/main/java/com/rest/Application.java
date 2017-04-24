@@ -58,6 +58,7 @@ public class Application extends SpringBootServletInitializer {
 	@Bean
 	public CommandLineRunner setup(ItemRepository itemRepository, ItemInfoRepository itemInfoRepository) {
 		return (args) -> {
+			efcs.add(new Efc("6", "66666"));
 			efcs.add(new Efc("5", "55555"));
 			efcs.add(new Efc("4", "44444"));
 			efcs.add(new Efc("3", "33333"));
