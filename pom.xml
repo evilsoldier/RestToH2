@@ -115,28 +115,28 @@
 <!-- 				</configuration> -->
 <!-- 			</plugin> -->
 
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>com.rest.Application</mainClass>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>io.hawt</groupId>
-				<artifactId>hawtio-maven-plugin</artifactId>
-				<version>${project.version}</version>
-				<configuration>
-					<mainClass>com.rest.Application</mainClass>
-				</configuration>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.springframework.boot</groupId> -->
+<!-- 				<artifactId>spring-boot-maven-plugin</artifactId> -->
+<!-- 				<configuration> -->
+<!-- 					<mainClass>com.rest.Application</mainClass> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<goals> -->
+<!-- 							<goal>repackage</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>io.hawt</groupId> -->
+<!-- 				<artifactId>hawtio-maven-plugin</artifactId> -->
+<!-- 				<version>${project.version}</version> -->
+<!-- 				<configuration> -->
+<!-- 					<mainClass>com.rest.Application</mainClass> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
 		</plugins>
 
 	</build>
