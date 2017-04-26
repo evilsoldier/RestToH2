@@ -90,7 +90,6 @@
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
-				<finalName>rest-to-h2-fm</finalName>
 				<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
