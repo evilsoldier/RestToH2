@@ -129,7 +129,7 @@ public class Application extends SpringBootServletInitializer {
 	 * 
 	 * @return
 	 */
-	// @Bean
+	@Bean
 	public HawtPlugin samplePlugin() {
 		return new HawtPlugin("sample-plugin", "/hawtio/plugins", "",
 				new String[] { "sample-plugin/js/sample-plugin.js" });
@@ -141,7 +141,7 @@ public class Application extends SpringBootServletInitializer {
 	 * @return
 	 * @throws Exception
 	 */
-	// @Bean
+	@Bean
 	public ConfigFacade configFacade() throws Exception {
 		ConfigFacade config = new ConfigFacade() {
 			public boolean isOffline() {
@@ -158,7 +158,7 @@ public class Application extends SpringBootServletInitializer {
 	 * 
 	 * @return
 	 */
-	// @Bean
+	@Bean
 	public PluginService pluginService() {
 		return new PluginService();
 	}
