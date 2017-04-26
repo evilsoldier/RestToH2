@@ -90,16 +90,16 @@
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
-				<finalName>rest-to-h2</finalName>
+				<finalName>rest-to-h2-fm</finalName>
 				<plugins>
-					<plugin>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>2.6</version>
-						<configuration>
-							<outputDirectory>webapps</outputDirectory>
-							<warName>ROOT</warName>
-							<outputDirectory>target</outputDirectory>
-						</configuration>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+					    <failOnMissingWebXml>false</failOnMissingWebXml>
+						<outputDirectory>target</outputDirectory>
+						<warName>ROOT</warName>
+					</configuration>
 					</plugin>
 				</plugins>
 			</build>
@@ -108,13 +108,13 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-war-plugin</artifactId> -->
+<!-- 				<configuration> -->
+<!-- 					<failOnMissingWebXml>false</failOnMissingWebXml> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
