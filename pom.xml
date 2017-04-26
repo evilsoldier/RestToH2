@@ -111,14 +111,13 @@
 			</activation>
 			<build>
 				<plugins>
-					<!-- <plugin> -->
-					<!-- <groupId>org.apache.maven.plugins</groupId> -->
-					<!-- <artifactId>maven-war-plugin</artifactId> -->
-					<!-- <configuration> -->
-					<!-- <failOnMissingWebXml>false</failOnMissingWebXml> -->
-					<!-- </configuration> -->
-					<!-- </plugin> -->
-
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<failOnMissingWebXml>false</failOnMissingWebXml>
+						</configuration>
+					</plugin>
 					<plugin>
 						<groupId>org.springframework.boot</groupId>
 						<artifactId>spring-boot-maven-plugin</artifactId>
@@ -133,14 +132,14 @@
 							</execution>
 						</executions>
 					</plugin>
-					<!-- <plugin> -->
-					<!-- <groupId>io.hawt</groupId> -->
-					<!-- <artifactId>hawtio-maven-plugin</artifactId> -->
-					<!-- <version>${project.version}</version> -->
-					<!-- <configuration> -->
-					<!-- <mainClass>com.rest.Application</mainClass> -->
-					<!-- </configuration> -->
-					<!-- </plugin> -->
+					<plugin>
+						<groupId>io.hawt</groupId>
+						<artifactId>hawtio-maven-plugin</artifactId>
+						<version>${project.version}</version>
+						<configuration>
+							<mainClass>com.rest.Application</mainClass>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
