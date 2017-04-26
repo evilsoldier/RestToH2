@@ -29,4 +29,9 @@ public class HtmlController {
 		mav.setViewName("welcome");
 		return mav;
 	}
+	
+	@RequestMapping("/ping")
+	public String ping() {
+		return "pong";
+	}
 }
