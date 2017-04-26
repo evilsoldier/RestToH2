@@ -115,7 +115,7 @@ public class Application extends SpringBootServletInitializer {
 		    
 		    return connector;
 		  }
-	 @PostConstruct
+	// @PostConstruct
 		public void init() {
 			final ConfigManager configManager = new ConfigManager();
 			configManager.init();
@@ -126,7 +126,7 @@ public class Application extends SpringBootServletInitializer {
 		 * Loading an example plugin
 		 * @return
 		 */
-		@Bean
+		//@Bean
 		public HawtPlugin samplePlugin() {
 			return new HawtPlugin("sample-plugin", "/hawtio/plugins", "", new String[] { "sample-plugin/js/sample-plugin.js" });
 		}
@@ -136,7 +136,7 @@ public class Application extends SpringBootServletInitializer {
 		 * @return
 		 * @throws Exception
 		 */
-		@Bean
+		//@Bean
 		public ConfigFacade configFacade() throws Exception {
 			ConfigFacade config = new ConfigFacade() {
 				public boolean isOffline() {
@@ -151,7 +151,7 @@ public class Application extends SpringBootServletInitializer {
 		 * Register rest endpoint to handle requests for /plugin, and return all registered plugins.
 		 * @return
 		 */
-		@Bean
+		//@Bean
 		public PluginService pluginService(){
 			return new PluginService();
 		}
