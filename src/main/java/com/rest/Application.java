@@ -46,6 +46,7 @@ public class Application extends SpringBootServletInitializer {
 	HashSet<Efc> efcs = new HashSet<>();
 
 	public static void main(String[] args) {
+		System.setProperty("hawtio.authenticationEnabled", "false");
 		System.setProperty(AuthenticationFilter.HAWTIO_AUTHENTICATION_ENABLED, "false");
 		SpringApplication.run(Application.class, args);
 	}
