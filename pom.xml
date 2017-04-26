@@ -98,6 +98,7 @@
 						<configuration>
 							<outputDirectory>webapps</outputDirectory>
 							<warName>ROOT</warName>
+							<outputDirectory>target</outputDirectory>
 						</configuration>
 					</plugin>
 				</plugins>
