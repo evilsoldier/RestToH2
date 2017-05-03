@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,8 @@ public class ItemController {
 
 	@Autowired
 	ItemService itemService;
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 	/**
 	 * Read efc details by given itemId and efcId.
@@ -96,7 +100,7 @@ public class ItemController {
 				for (Efc efc : item.getEfcs()) {
 					if (efc.getEfc().equals(efcId)) {
 						item.getEfcs().remove(efc);
-						System.out.println("Item Efc Velocity deleted: itemid: " + itemId + " efcid: " + efcId);
+						logger.info("Item Efc Velocity deleted: itemid: " + itemId + " efcid: " + efcId);
 						itemService.updateItem(item);
 						return new ResponseMessage("record deleted with itemId: " + itemId);
 					}
@@ -141,7 +145,7 @@ public class ItemController {
 		efcs.add(new Efc(efcId, velocity));
 		item.setEfcs(efcs);
 		itemService.updateItem(item);
-		System.out.println("Updated/Created itemId: " + itemId);
+		logger.info("Updated/Created itemId: " + itemId);
 		return new ResponseMessage("updated/created item with itemId: " + item.getItemId());
 	}
 }
