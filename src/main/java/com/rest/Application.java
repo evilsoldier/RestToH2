@@ -168,10 +168,10 @@ public class Application extends SpringBootServletInitializer {
 		return new PluginService();
 	}
 	
-	//@Bean
+	@Bean
 	public InternalResourceViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/");
+        viewResolver.setPrefix("/WEB-INF/jsp/");
         viewResolver.setSuffix(".jsp");
         
         return viewResolver;
