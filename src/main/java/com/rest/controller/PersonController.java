@@ -1,26 +1,24 @@
 package com.rest.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.rest.model.person.Person;
 import com.rest.repository.PersonService;
 
-@RestController
+@Controller
 @RequestMapping("/persons")
 public class PersonController {
 
 	@Autowired
 	PersonService personService;
-
-	@RequestMapping(value = "/{personId}", method = RequestMethod.GET, produces = "application/json")
-	public Person getItemInfo(@PathVariable(value = "personId") Long personId, HttpServletRequest request) {
-
-		return personService.findById(personId);
+	
+	@GetMapping("/person")
+	public String welcome(Model model, @RequestParam(value="id", defaultValue="1") Long id) {
+		model.addAttribute("person", personService.findById(id));
+		return "person";
 	}
 }

@@ -21,6 +21,7 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.rest.model.person.Person;
 import com.rest.model.velocity.Efc;
@@ -165,5 +166,14 @@ public class Application extends SpringBootServletInitializer {
 	@Bean
 	public PluginService pluginService() {
 		return new PluginService();
+	}
+	
+	//@Bean
+	public InternalResourceViewResolver viewResolver() {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/");
+        viewResolver.setSuffix(".jsp");
+        
+        return viewResolver;
 	}
 }
