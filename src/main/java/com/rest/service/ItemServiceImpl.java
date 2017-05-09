@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rest.model.velocity.Item;
 import com.rest.repository.ItemRepository;
 import com.rest.repository.ItemService;
-import com.rest.velocity.Item;
 
 @Service("itemService")
 public class ItemServiceImpl implements ItemService {
@@ -33,5 +33,10 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public void updateItem(Item item) {
 		itemRepository.save(item);
+	}
+
+	@Override
+	public Item findById(String itemId) {
+		return itemRepository.findOne(Long.valueOf(itemId));
 	}
 }

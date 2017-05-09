@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rest.model.velocity.Efc;
+import com.rest.model.velocity.Item;
 import com.rest.repository.ItemService;
-import com.rest.velocity.Efc;
-import com.rest.velocity.Item;
 
 import response.ResponseMessage;
 
@@ -147,5 +147,10 @@ public class ItemController {
 		itemService.updateItem(item);
 		logger.info("Updated/Created itemId: " + itemId);
 		return new ResponseMessage("updated/created item with itemId: " + item.getItemId());
+	}
+	
+	@RequestMapping(value = "/efc-velocity-rest/items/{itemId}", method = RequestMethod.GET, produces = "application/json")
+	public Item findItemById(@PathVariable(value = "itemId") String itemId) {
+		return itemService.findById(itemId);
 	}
 }

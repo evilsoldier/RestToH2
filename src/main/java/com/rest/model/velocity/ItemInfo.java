@@ -1,4 +1,4 @@
-package com.rest.velocity;
+package com.rest.model.velocity;
 
 import java.io.Serializable;
 

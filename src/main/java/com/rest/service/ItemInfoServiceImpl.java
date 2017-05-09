@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rest.model.velocity.ItemInfo;
 import com.rest.repository.ItemInfoRepository;
 import com.rest.repository.ItemInfoService;
-import com.rest.velocity.ItemInfo;
 
 @Service("itemInfoService")
 public class ItemInfoServiceImpl implements ItemInfoService {

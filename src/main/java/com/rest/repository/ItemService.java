@@ -1,7 +1,8 @@
 package com.rest.repository;
 
 import java.util.List;
-import com.rest.velocity.Item;
+
+import com.rest.model.velocity.Item;
 
 public interface ItemService {
 	List<Item> getAllItems();
@@ -9,4 +10,6 @@ public interface ItemService {
 	void deleteItem(String itemId);
 	
 	void updateItem(Item item);
+	
+	Item findById(String itemId);
 }

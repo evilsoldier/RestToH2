@@ -1,6 +1,6 @@
 package com.rest.repository;
 
-import com.rest.velocity.ItemInfo;
+import com.rest.model.velocity.ItemInfo;
 
 public interface ItemInfoService {
 

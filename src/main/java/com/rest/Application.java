@@ -19,13 +19,16 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import com.rest.model.person.Person;
+import com.rest.model.velocity.Efc;
+import com.rest.model.velocity.Item;
+import com.rest.model.velocity.ItemInfo;
 import com.rest.repository.ItemInfoRepository;
 import com.rest.repository.ItemRepository;
-import com.rest.velocity.Efc;
-import com.rest.velocity.Item;
-import com.rest.velocity.ItemInfo;
+import com.rest.repository.PersonRepository;
 
 import io.hawt.config.ConfigFacade;
 import io.hawt.springboot.EnableHawtio;
@@ -47,7 +50,7 @@ public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		System.setProperty(AuthenticationFilter.HAWTIO_AUTHENTICATION_ENABLED, "false");
-		SpringApplication.run(Application.class, args);
+		ApplicationContext ctx = SpringApplication.run(Application.class, args);
 	}
 
 	@Override
@@ -57,7 +60,7 @@ public class Application extends SpringBootServletInitializer {
 	}
 
 	@Bean
-	public CommandLineRunner setup(ItemRepository itemRepository, ItemInfoRepository itemInfoRepository) {
+	public CommandLineRunner setup(ItemRepository itemRepository, ItemInfoRepository itemInfoRepository, PersonRepository personRepository) {
 		return (args) -> {
 			efcs.add(new Efc("6", "66666"));
 			efcs.add(new Efc("5", "55555"));
@@ -85,6 +88,7 @@ public class Application extends SpringBootServletInitializer {
 					null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2", "N",
 					"N", null, null));
 
+			personRepository.save(new Person(1l, "Pesho", "Peshkata"));
 			logger.info("The sample data has been generated");
 		};
 	}

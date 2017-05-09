@@ -3,9 +3,9 @@ package com.rest.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.rest.model.velocity.Item;
+import com.rest.model.person.Person;
 
-@Repository("itemRepository")
-public interface ItemRepository extends JpaRepository<Item, Long>{
+@Repository("personRepository")
+public interface PersonRepository extends JpaRepository<Person, Long>{
 
 }
