@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.rest.repository.PersonService;
 
 @Controller
-@RequestMapping("/persons")
+@RequestMapping("/")
 public class PersonController {
 
 	@Autowired
@@ -20,5 +20,10 @@ public class PersonController {
 	public String welcome(Model model, @RequestParam(value="id", defaultValue="1") Long id) {
 		model.addAttribute("person", personService.findById(id));
 		return "person";
+	}
+	
+	@GetMapping("/welcome")
+	public String welcome(Model model) {
+		return "welcome";
 	}
 }
