@@ -90,6 +90,7 @@ public class Application extends SpringBootServletInitializer {
 					"N", null, null));
 
 			personRepository.save(new Person(1l, "Pesho", "Peshkata"));
+			personRepository.save(new Person(2l, "Gosho", "Goshkata"));
 			logger.info("The sample data has been generated");
 		};
 	}

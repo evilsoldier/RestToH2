@@ -22,9 +22,15 @@ public class HtmlController {
 	}
 
 	@GetMapping("/person")
-	public String welcome(Model model, @RequestParam(value = "id", defaultValue = "1") Long id) {
+	public String person(Model model, @RequestParam(value = "id", defaultValue = "1") Long id) {
 		model.addAttribute("person", personService.findById(id));
 		return "person";
+	}
+	
+	@GetMapping("/persons")
+	public String persons(Model model) {
+		model.addAttribute("persons", personService.findAll());
+		return "persons";
 	}
 
 	@RequestMapping(value = "/ping", method = RequestMethod.GET, produces = "application/json")
