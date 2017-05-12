@@ -18,6 +18,4 @@ management.security.enabled: false
 #security.user.password: secret
 #management.security.roles: SUPERUSER
 
-spring: 
-  main:
-    web-environment: false
+#spring.main.web-environment: false
