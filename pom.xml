@@ -101,28 +101,14 @@
 			<build>
 				<finalName>rest-to-h2</finalName>
 				<plugins>
-					<!-- <plugin> -->
-					<!-- <groupId>org.apache.maven.plugins</groupId> -->
-					<!-- <artifactId>maven-war-plugin</artifactId> -->
-					<!-- <configuration> -->
-					<!-- <failOnMissingWebXml>false</failOnMissingWebXml> -->
-					<!-- <outputDirectory>target</outputDirectory> -->
-					<!-- <warName>ROOT</warName> -->
-					<!-- </configuration> -->
-					<!-- </plugin> -->
 					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
 						<configuration>
-							<mainClass>com.rest.Application</mainClass>
+							<failOnMissingWebXml>false</failOnMissingWebXml>
+							<outputDirectory>target</outputDirectory>
+							<warName>ROOT</warName>
 						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>repackage</goal>
-								</goals>
-							</execution>
-						</executions>
 					</plugin>
 				</plugins>
 			</build>
