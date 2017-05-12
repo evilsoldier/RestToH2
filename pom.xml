@@ -108,6 +108,7 @@
 							<failOnMissingWebXml>false</failOnMissingWebXml>
 							<outputDirectory>target</outputDirectory>
 							<warName>ROOT</warName>
+								<packagingExcludes>WEB-INF/lib/tomcat-*.jar</packagingExcludes>
 						</configuration>
 					</plugin>
 				</plugins>
