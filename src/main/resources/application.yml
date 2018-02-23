@@ -19,3 +19,5 @@ management.security.enabled: false
 #management.security.roles: SUPERUSER
 
 #spring.main.web-environment: false
+
+spring.jackson.serialization.indent_output: true
