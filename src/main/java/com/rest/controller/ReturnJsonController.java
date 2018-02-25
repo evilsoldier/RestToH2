@@ -1,12 +1,15 @@
 package com.rest.controller;
 
-import java.util.LinkedHashMap;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -22,24 +25,26 @@ public class ReturnJsonController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-	@RequestMapping(method = RequestMethod.POST, value = "/post", consumes = org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-	produces = org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/post", 
+			method = RequestMethod.POST, 
+			consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody JsonResponse processFormStuff(@RequestHeader HttpHeaders headers,
 			@RequestBody final MultiValueMap<String, String> formVars) {
 
 		// do something with form variables, then return
 
 		JsonResponse result = new JsonResponse();
-		LinkedHashMap<String, String> args = new LinkedHashMap<>();
+		Map<String, String> args = new TreeMap<>();
 
-		LinkedHashMap<String, String> files = new LinkedHashMap<>();
+		Map<String, String> files = new TreeMap<>();
 
-		LinkedHashMap<String, String> form = new LinkedHashMap<>();
-		for (Entry<String, List<String>> multiValueMap : formVars.entrySet()) {
-			form.put(multiValueMap.getKey(), multiValueMap.getValue().get(0));
+		Map<String, String> form = new TreeMap<>((Comparator<String>) (o1, o2) -> o1.compareTo(o2));
+		for (Entry<String, List<String>> mvm : formVars.entrySet()) {
+			form.put(mvm.getKey(), mvm.getValue().get(0));
 		}
 
-		LinkedHashMap<String, String> hdrs = new LinkedHashMap<>();
+		Map<String, String> hdrs = new TreeMap<>();
 		for (Entry<String, List<String>> mvm : headers.entrySet()) {
 			hdrs.put(mvm.getKey(), mvm.getValue().get(0));
 		}
