@@ -28,10 +28,10 @@ public class JsonResponse {
 	private Map<String, String> json;
 
 	@JsonProperty
-	private Map<String, String> origin;
+	private String origin;
 
 	@JsonProperty
-	private Map<String, String> ur;
+	private String url;
 
 	public Map<String, String> getForm() {
 		return form;
@@ -81,20 +81,20 @@ public class JsonResponse {
 		this.json = json;
 	}
 
-	public Map<String, String> getOrigin() {
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getOrigin() {
 		return origin;
 	}
 
-	public void setOrigin(Map<String, String> origin) {
+	public void setOrigin(String origin) {
 		this.origin = origin;
-	}
-
-	public Map<String, String> getUr() {
-		return ur;
-	}
-
-	public void setUr(Map<String, String> ur) {
-		this.ur = ur;
 	}
 
 	@Override

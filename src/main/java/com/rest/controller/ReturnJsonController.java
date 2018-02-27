@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -29,8 +31,7 @@ public class ReturnJsonController {
 			method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody JsonResponse processFormStuff(@RequestHeader HttpHeaders headers,
-			@RequestBody final MultiValueMap<String, String> formVars) {
+	public @ResponseBody JsonResponse processFormStuff(@RequestHeader HttpHeaders headers, HttpServletRequest request) {
 
 		// do something with form variables, then return
 
@@ -40,9 +41,13 @@ public class ReturnJsonController {
 		Map<String, String> files = new TreeMap<>();
 
 		Map<String, String> form = new TreeMap<>((Comparator<String>) (o1, o2) -> o1.compareTo(o2));
-		for (Entry<String, List<String>> mvm : formVars.entrySet()) {
-			form.put(mvm.getKey(), mvm.getValue().get(0));
+
+		for (String key : request.getParameterMap().keySet()) {
+			form.put(key, request.getParameterMap().get(key)[0]);
 		}
+		
+		logger.info(request.getRemoteHost());
+
 
 		Map<String, String> hdrs = new TreeMap<>();
 		for (Entry<String, List<String>> mvm : headers.entrySet()) {
@@ -55,8 +60,8 @@ public class ReturnJsonController {
 		// LinkedHashMap<String, String> origin = new LinkedHashMap<>();
 		// origin.put("origin", headers.getOrigin());
 
-		// LinkedHashMap<String, String> url = new LinkedHashMap<>();
-		// url.put("url", headers.getLocation().toString());
+		 Map<String, String> url = new TreeMap<>();
+		 url.put("url", request.getRequestURL().toString());
 
 		// result.set
 		result.setArgs(args);
@@ -64,8 +69,8 @@ public class ReturnJsonController {
 		result.setForm(form);
 		result.setHeaders(hdrs);
 		result.setJson(null);
-		result.setOrigin(null);
-		result.setUr(null);
+		result.setOrigin(request.getHeader("origin"));
+		result.setUrl(request.getRequestURL().toString());
 		return result;
 	}
 }

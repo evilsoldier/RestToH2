@@ -14,6 +14,7 @@ spring.mvc.view.prefix: /WEB-INF/jsp/
 spring.mvc.view.suffix: .jsp
 
 management.security.enabled: false
+security.basic.enabled: false
 #security.user.name: admin
 #security.user.password: secret
 #management.security.roles: SUPERUSER
