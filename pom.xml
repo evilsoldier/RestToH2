@@ -157,6 +157,8 @@
 						<version>${project.version}</version>
 						<configuration>
 							<mainClass>com.rest.Application</mainClass>
+							<wait>1000</wait>
+							<maxAttempts>180</maxAttempts>
 						</configuration>
 					</plugin>
 				</plugins>
