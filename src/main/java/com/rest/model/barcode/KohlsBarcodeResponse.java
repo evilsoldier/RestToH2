@@ -1,6 +1,6 @@
 package com.rest.model.barcode;
 
-public class KohlsBarcode {
+public class KohlsBarcodeResponse {
 
     private String barcode;
     private int pin;
@@ -23,7 +23,7 @@ public class KohlsBarcode {
 
     @Override
     public String toString() {
-        return "KohlsBarcode{" +
+        return "KohlsBarcodeResponse{" +
                 "barcode='" + barcode + '\'' +
                 ", pin=" + pin +
                 '}';
