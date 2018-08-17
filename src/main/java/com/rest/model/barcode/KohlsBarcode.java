@@ -2,16 +2,8 @@ package com.rest.model.barcode;
 
 public class KohlsBarcode {
 
-    private String mail;
     private String barcode;
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+    private int pin;
 
     public String getBarcode() {
         return barcode;
@@ -21,11 +13,19 @@ public class KohlsBarcode {
         this.barcode = barcode;
     }
 
+    public int getPin() {
+        return pin;
+    }
+
+    public void setPin(int pin) {
+        this.pin = pin;
+    }
+
     @Override
     public String toString() {
         return "KohlsBarcode{" +
-                "mail='" + mail + '\'' +
-                ", barcode='" + barcode + '\'' +
+                "barcode='" + barcode + '\'' +
+                ", pin=" + pin +
                 '}';
     }
 }
