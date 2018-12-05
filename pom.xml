@@ -85,25 +85,9 @@
 			<artifactId>logstash-logback-encoder</artifactId>
 			<version>4.7</version>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.tomcat.embed</groupId> -->
-		<!-- <artifactId>tomcat-embed-jasper</artifactId> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>javax.servlet</groupId> -->
-		<!-- <artifactId>jstl</artifactId> -->
-		<!-- </dependency> -->
 	</dependencies>
 	<profiles>
 		<profile>
-			<!-- When built in OpenShift the 'openshift' profile will be used when 
-				invoking mvn. -->
-			<!-- Use this profile for any OpenShift specific customization your app 
-				will need. -->
-			<!-- By default that is to put the resulting archive into the 'webapps' 
-				folder. -->
-			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
 				<finalName>rest-to-h2</finalName>

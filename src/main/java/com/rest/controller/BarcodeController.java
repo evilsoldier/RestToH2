@@ -38,7 +38,7 @@ public class BarcodeController {
         return statusMessage;
     }
 
-    @RequestMapping(value = "/postMessage", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/postMessage", method = RequestMethod.POST)
     public String postMessage(@RequestBody String message) {
 
         logger.info(message);
