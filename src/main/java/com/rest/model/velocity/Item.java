@@ -9,35 +9,33 @@ import javax.persistence.Id;
 @Entity
 public class Item implements Serializable {
 
-	private static final long serialVersionUID = -784121363114915838L;
+    @Id
+    private String itemId;
+    private HashSet<Efc> efcs;
 
-	@Id
-	private String itemId;
-	private HashSet<Efc> efcs;
-	
-	public Item() {
-		super();
-	}
+    public Item() {
+        super();
+    }
 
-	public Item(String itemId, HashSet<Efc> efcs) {
-		super();
-		this.itemId = itemId;
-		this.efcs = efcs;
-	}
+    public Item(String itemId, HashSet<Efc> efcs) {
+        super();
+        this.itemId = itemId;
+        this.efcs = efcs;
+    }
 
-	public String getItemId() {
-		return itemId;
-	}
+    public String getItemId() {
+        return itemId;
+    }
 
-	public void setItemId(String itemId) {
-		this.itemId = itemId;
-	}
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
 
-	public HashSet<Efc> getEfcs() {
-		return efcs;
-	}
+    public HashSet<Efc> getEfcs() {
+        return efcs;
+    }
 
-	public void setEfcs(HashSet<Efc> efcs) {
-		this.efcs = efcs;
-	}
+    public void setEfcs(HashSet<Efc> efcs) {
+        this.efcs = efcs;
+    }
 }

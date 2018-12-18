@@ -12,18 +12,23 @@ import com.rest.repository.ItemInfoService;
 @Service("itemInfoService")
 public class ItemInfoServiceImpl implements ItemInfoService {
 
-	@Autowired
-	ItemInfoRepository repository;
 
-	@Override
-	public ItemInfo getItemInfoById(String itm_id) {
-		List<ItemInfo> allItemInfos = repository.findAll();
+    private ItemInfoRepository repository;
 
-		for (ItemInfo itemInfo : allItemInfos) {
-			if (itemInfo.getItemID().equals(itm_id)) {
-				return itemInfo;
-			}
-		}
-		return null;
-	}
+    @Autowired
+    public ItemInfoServiceImpl(ItemInfoRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public ItemInfo getItemInfoById(String itm_id) {
+        List<ItemInfo> allItemInfos = repository.findAll();
+
+        for (ItemInfo itemInfo : allItemInfos) {
+            if (itemInfo.getItemID().equals(itm_id)) {
+                return itemInfo;
+            }
+        }
+        return null;
+    }
 }

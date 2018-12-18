@@ -1,6 +1,7 @@
 package com.rest.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +13,16 @@ import com.rest.repository.PersonService;
 @Service("personService")
 public class PersonServiceImpl implements PersonService {
 
-	@Autowired
-	PersonRepository personRepository;
+    @Autowired
+    PersonRepository personRepository;
 
-	@Override
-	public Person findById(Long id) {
-		return personRepository.findOne(id);
-	}
+    @Override
+    public Optional<Person> findById(long id) {
+        return personRepository.findById(id);
+    }
 
-	@Override
-	public List<Person> findAll() {
-		return personRepository.findAll();
-	}
+    @Override
+    public List<Person> findAll() {
+        return personRepository.findAll();
+    }
 }

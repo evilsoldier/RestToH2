@@ -16,15 +16,18 @@ import com.rest.repository.ItemInfoService;
 @RequestMapping("/")
 public class ItemInfoController {
 
-	@Autowired
-	ItemInfoService service;
 
-	@RequestMapping(value = "/efc-iam-rest/{itm_id}", method = RequestMethod.GET, produces = "application/json")
-	public ItemInfo getItemInfo(@PathVariable(value = "itm_id") String itm_id, HttpServletRequest request) {
-		
-		SecurityContextHolder.getContext().getAuthentication();
-		ItemInfo itemInfo = service.getItemInfoById(itm_id);
-		
-		return itemInfo != null ? itemInfo : null;
-	}
+    private ItemInfoService service;
+
+    @Autowired
+    public ItemInfoController(ItemInfoService service) {
+        this.service = service;
+    }
+
+    @RequestMapping(value = "/efc-iam-rest/{itm_id}", method = RequestMethod.GET, produces = "application/json")
+    public ItemInfo getItemInfo(@PathVariable(value = "itm_id") String itm_id, HttpServletRequest request) {
+
+        SecurityContextHolder.getContext().getAuthentication();
+        return service.getItemInfoById(itm_id);
+    }
 }

@@ -1,4 +1,4 @@
-#remove comments from below rows and remove comment from Application.java row 83 to start on HTTPS
+#remove comments from below rows and remove comment from App.java row 83 to start on HTTPS
 
 server.port: 8090
 #server.ssl.key-store: kohls_keystore.jks
@@ -12,14 +12,5 @@ spring.jmx.enabled: false
 hawtio.authenticationEnabled: false
 spring.mvc.view.prefix: /WEB-INF/jsp/
 spring.mvc.view.suffix: .jsp
-
-management.security.enabled: false
-security.basic.enabled: false
-enable.application.security: false
-#security.user.name: admin
-#security.user.password: secret
-#management.security.roles: SUPERUSER
-
-#spring.main.web-environment: false
 
 spring.jackson.serialization.indent_output: true

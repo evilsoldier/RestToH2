@@ -10,29 +10,33 @@ import com.rest.repository.PersonService;
 @Controller
 public class HtmlController {
 
-	@Autowired
-	PersonService personService;
+    private final PersonService personService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		return "home";
-	}
+    @Autowired
+    public HtmlController(PersonService personService) {
+        this.personService = personService;
+    }
 
-	@GetMapping("/person")
-	public String person(Model model, @RequestParam(value = "id", defaultValue = "1") Long id) {
-		model.addAttribute("person", personService.findById(id));
-		return "person";
-	}
-	
-	@GetMapping("/persons")
-	public String persons(Model model) {
-		model.addAttribute("persons", personService.findAll());
-		return "persons";
-	}
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home(Model model) {
+        return "home";
+    }
 
-	@RequestMapping(value = "/ping", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public String ping() {
-		return "pong";
-	}
+    @GetMapping("/person")
+    public String person(Model model, @RequestParam(value = "id", defaultValue = "1") Long id) {
+        model.addAttribute("person", personService.findById(id));
+        return "person";
+    }
+
+    @GetMapping("/persons")
+    public String persons(Model model) {
+        model.addAttribute("persons", personService.findAll());
+        return "persons";
+    }
+
+    @RequestMapping(value = "/ping", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public String ping() {
+        return "pong";
+    }
 }

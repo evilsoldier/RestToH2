@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE )
+@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 @ResponseBody
 public interface ResponseEntity<String> {
-	
-	ResponseEntity<String> processFormStuff(@RequestBody final MultiValueMap<String, String > formVars );
+
+    ResponseEntity<String> processFormStuff(@RequestBody final MultiValueMap<String, String> formVars);
 
 }
