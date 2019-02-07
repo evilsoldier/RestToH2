@@ -1,13 +1,19 @@
 package response;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 public class JsonResponse {
+
+    private final ObjectMapper mapper = new ObjectMapper();
+
+    private final Logger log = LoggerFactory.getLogger(JsonResponse.class);
 
     @JsonProperty
     private Map<String, String> args;
@@ -99,14 +105,14 @@ public class JsonResponse {
 
     @Override
     public String toString() {
-        ObjectMapper mapper = new ObjectMapper();
+
         String jsonString = "";
 
         try {
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
             jsonString = mapper.writeValueAsString(this);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
         return jsonString;

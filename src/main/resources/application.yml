@@ -14,3 +14,12 @@ spring.mvc.view.prefix: /WEB-INF/jsp/
 spring.mvc.view.suffix: .jsp
 
 spring.jackson.serialization.indent_output: true
+
+#H2 web console
+spring.h2.console.enabled: true
+spring.h2.console.path: /h2-console
+
+security:
+  basic:
+    enabled: true
+    authorize-mode: NONE

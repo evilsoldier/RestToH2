@@ -14,19 +14,19 @@ public class BarcodeController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    @RequestMapping(value = "/activateBarcode/", method = RequestMethod.POST, produces = "application/json")
+    @PostMapping(value = "/activateBarcode/", produces = "application/json")
     public KohlsBarcodeResponse getBarcode(@RequestBody KohlsBarcodeRequest request) {
 
-        int pin = (int)(Math.random()*9000)+1000;
+        int pin = (int) (Math.random() * 9000) + 1000;
         KohlsBarcodeResponse barcode = new KohlsBarcodeResponse();
         barcode.setBarcode(request.getEventId() + pin + request.getEventId());
         barcode.setPin(pin);
-       // logger.info("generated barcode for " + request.getEventId() + " and kcAmoutn " + request.getEventId());
+        // logger.info("generated barcode for " + request.getEventId() + " and kcAmoutn " + request.getEventId());
 
         return barcode;
     }
 
-    @RequestMapping(value = "/activateBarcode/testerror", method = RequestMethod.POST, produces = "application/json")
+    @PostMapping(value = "/activateBarcode/testerror", produces = "application/json")
     public StatusMessage getBarcode() {
 
         StatusMessage statusMessage = new StatusMessage();
@@ -38,7 +38,7 @@ public class BarcodeController {
         return statusMessage;
     }
 
-    @RequestMapping(value = "/postMessage", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/postMessage", method = RequestMethod.POST)
     public String postMessage(@RequestBody String message) {
 
         logger.info(message);

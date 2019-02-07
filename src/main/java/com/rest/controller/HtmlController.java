@@ -1,11 +1,12 @@
 package com.rest.controller;
 
+import com.rest.repository.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import com.rest.repository.PersonService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HtmlController {
@@ -13,11 +14,11 @@ public class HtmlController {
     private final PersonService personService;
 
     @Autowired
-    public HtmlController(PersonService personService) {
+    private HtmlController(PersonService personService) {
         this.personService = personService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public String home(Model model) {
         return "home";
     }
@@ -34,9 +35,10 @@ public class HtmlController {
         return "persons";
     }
 
-    @RequestMapping(value = "/ping", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/ping")
     @ResponseBody
     public String ping() {
         return "pong";
     }
+
 }

@@ -1,23 +1,18 @@
 package com.rest.controller;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-
+import com.rest.model.velocity.Efc;
+import com.rest.model.velocity.Item;
+import com.rest.repository.ItemService;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.rest.model.velocity.Efc;
-import com.rest.model.velocity.Item;
-import com.rest.repository.ItemService;
-
+import org.springframework.web.bind.annotation.*;
 import response.ResponseMessage;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Georgi Trendafilov
@@ -43,7 +38,7 @@ public class ItemController {
      * @param efcId
      * @return item instance of {@link Item}
      */
-    @RequestMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}", produces = "application/json")
     public Item getItem(@PathVariable(value = "item_id") String itemId, @PathVariable(value = "efc_id") String efcId) {
         List<Item> items = itemService.getAllItems();
         HashSet<Efc> efcs = new HashSet<>();
@@ -67,7 +62,7 @@ public class ItemController {
      * @param itemId
      * @return item instance of {@link Item}
      */
-    @RequestMapping(value = "/efc-velocity-rest/efcs/{item_id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/efc-velocity-rest/efcs/{item_id}", produces = "application/json")
     public Optional<Item> getAllEfcs(@PathVariable(value = "item_id") long itemId) {
 
         return itemService.findById(itemId);
@@ -79,7 +74,7 @@ public class ItemController {
      * @param efcId
      * @return listOf items instance of {@link Item}
      */
-    @RequestMapping(value = "/efc-velocity-rest/{efc_id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/efc-velocity-rest/{efc_id}", produces = "application/json")
     public List<Item> getAllItems(@PathVariable(value = "efc_id") String efcId) {
         if ("EFC5".equalsIgnoreCase(efcId)) {
             return itemService.getAllItems();
@@ -94,7 +89,7 @@ public class ItemController {
      * @param efcId
      * @return httpStatus instance of {@link HttpStatus}
      */
-    @RequestMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}", method = RequestMethod.DELETE, produces = "application/json")
+    @DeleteMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}", produces = "application/json")
     public ResponseMessage deleteItem(@PathVariable(value = "item_id") String itemId,
                                       @PathVariable(value = "efc_id") String efcId) {
         List<Item> items = itemService.getAllItems();
@@ -122,7 +117,7 @@ public class ItemController {
      * @param velocity
      * @return httpStatus instance of {@link HttpStatus}
      */
-    @RequestMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}/{velocity}", method = RequestMethod.POST, produces = "application/json")
+    @PostMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}/{velocity}", produces = "application/json")
     public ResponseMessage updateItem(@PathVariable(value = "item_id") String itemId,
                                       @PathVariable(value = "efc_id") String efcId, @PathVariable(value = "velocity") String velocity) {
         List<Item> items = itemService.getAllItems();
@@ -154,7 +149,7 @@ public class ItemController {
         return new ResponseMessage("updated/created item with itemId: " + item.getItemId());
     }
 
-    @RequestMapping(value = "/efc-velocity-rest/items/{itemId}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/efc-velocity-rest/items/{itemId}", produces = "application/json")
     public Optional<Item> findItemById(@PathVariable(value = "itemId") long itemId) {
         return itemService.findById(itemId);
     }

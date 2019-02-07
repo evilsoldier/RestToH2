@@ -83,18 +83,16 @@
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
-            <version>5.2</version>
+            <version>5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
     <profiles>
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when
-                invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization your app
-                will need. -->
-            <!-- By default that is to put the resulting archive into the 'webapps'
-                folder. -->
-            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
             <build>
                 <finalName>rest-to-h2</finalName>
@@ -132,7 +130,7 @@
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
-                            <mainClass>com.rest.App</mainClass>
+                            <mainClass>com.rest.Application</mainClass>
                         </configuration>
                         <executions>
                             <execution>
@@ -147,7 +145,7 @@
                         <artifactId>hawtio-maven-plugin</artifactId>
                         <version>${project.version}</version>
                         <configuration>
-                            <mainClass>com.rest.App</mainClass>
+                            <mainClass>com.rest.Application</mainClass>
                             <wait>1000</wait>
                             <maxAttempts>180</maxAttempts>
                         </configuration>
