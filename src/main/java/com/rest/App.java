@@ -7,11 +7,6 @@ import com.rest.model.velocity.ItemInfo;
 import com.rest.repository.ItemInfoRepository;
 import com.rest.repository.ItemRepository;
 import com.rest.repository.PersonRepository;
-import io.hawt.config.ConfigFacade;
-import io.hawt.springboot.EnableHawtio;
-import io.hawt.springboot.HawtPlugin;
-import io.hawt.springboot.PluginService;
-import io.hawt.web.AuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +17,6 @@ import org.springframework.context.annotation.Bean;
 import java.util.HashSet;
 
 @SpringBootApplication
-@EnableHawtio
 public class App {
 
     private static final Logger logger = LoggerFactory.getLogger(App.class);
@@ -31,7 +25,6 @@ public class App {
 
     public static void main(String[] args) {
         System.setProperty("hawtio.authenticationEnabled", "false");
-        System.setProperty(AuthenticationFilter.HAWTIO_AUTHENTICATION_ENABLED, "false");
         SpringApplication.run(App.class, args);
     }
 
@@ -68,45 +61,6 @@ public class App {
             personRepository.save(new Person(2l, "Gosho", "Goshkata"));
             logger.info("The sample data has been generated");
         };
-    }
-
-    /**
-     * Loading an example plugin
-     *
-     * @return
-     */
-    @Bean
-    public HawtPlugin samplePlugin() {
-        return new HawtPlugin("sample-plugin", "/hawtio/plugins", "",
-                new String[]{"sample-plugin/js/sample-plugin.js"});
-    }
-
-    /**
-     * Set things up to be in offline mode
-     *
-     * @return
-     * @throws Exception
-     */
-    @Bean
-    public ConfigFacade configFacade() throws Exception {
-        ConfigFacade config = new ConfigFacade() {
-            public boolean isOffline() {
-                return true;
-            }
-        };
-        config.init();
-        return config;
-    }
-
-    /**
-     * Register rest endpoint to handle requests for /plugin, and return all
-     * registered plugins.
-     *
-     * @return
-     */
-    @Bean
-    public PluginService pluginService() {
-        return new PluginService();
     }
 
 }

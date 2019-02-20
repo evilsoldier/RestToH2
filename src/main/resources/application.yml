@@ -6,10 +6,29 @@ server.port: 8090
 #server.ssl.keyStoreType: JKS
 #server.ssl.keyAlias: kohls
 
+#Hawt.io configurations. Example: http://localhost:8091/management/actuator/hawtio/console
+management:
+  server:
+    port: 8091
+    servlet:
+      context-path: /management
+  endpoints:
+    web:
+      # customize the /actuator path
+      #      base-path:
+      # customize the path to the Hawtio endpoint
+      path-mapping.hawtio: hawtio/console
+      exposure:
+        #Enable the Hawtio and Jolokia endpoints
+        include: hawtio,jolokia
+
+hawtio:
+  authenticationEnabled: false
+  proxyWhitelist: '*'
+
 #hawt.io and Jolokia properties
 endpoints.jolokia.sensitive: false
-spring.jmx.enabled: false
-hawtio.authenticationEnabled: false
+spring.jmx.enabled: true
 spring.mvc.view.prefix: /WEB-INF/jsp/
 spring.mvc.view.suffix: .jsp
 
