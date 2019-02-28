@@ -21,7 +21,6 @@ management:
       exposure:
         #Enable the Hawtio and Jolokia endpoints
         include: hawtio,jolokia
-
 hawtio:
   authenticationEnabled: false
   proxyWhitelist: '*'
@@ -31,6 +30,9 @@ endpoints.jolokia.sensitive: false
 spring.jmx.enabled: true
 spring.mvc.view.prefix: /WEB-INF/jsp/
 spring.mvc.view.suffix: .jsp
+spring:
+  jpa:
+    show-sql: true
 
 spring.jackson.serialization.indent_output: true
 

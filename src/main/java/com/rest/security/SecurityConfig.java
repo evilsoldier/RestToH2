@@ -26,7 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("user")
                 .password(passwordEncoder().encode("password"))
-                .roles("USER");
+                .roles("USER")
+                .authorities("ROLE_USER");
     }
 
     /**
@@ -35,10 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/**")
-                .permitAll();
+                .and().authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/h2_console/**").permitAll();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Bean
