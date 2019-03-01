@@ -16,7 +16,7 @@ import javax.swing.text.html.Option;
 public class ItemServiceImpl implements ItemService {
 
 
-    private ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
 
     @Autowired
     public ItemServiceImpl(ItemRepository itemRepository) {

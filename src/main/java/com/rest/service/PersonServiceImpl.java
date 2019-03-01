@@ -12,8 +12,12 @@ import java.util.Optional;
 @Service("personService")
 public class PersonServiceImpl implements PersonService {
 
+    private final PersonRepository personRepository;
+
     @Autowired
-    private PersonRepository personRepository;
+    public PersonServiceImpl(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     @Override
     public Optional<Person> findById(long id) {

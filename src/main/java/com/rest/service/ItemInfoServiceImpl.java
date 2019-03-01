@@ -13,7 +13,7 @@ import com.rest.repository.ItemInfoService;
 public class ItemInfoServiceImpl implements ItemInfoService {
 
 
-    private ItemInfoRepository repository;
+    private final ItemInfoRepository repository;
 
     @Autowired
     public ItemInfoServiceImpl(ItemInfoRepository repository) {

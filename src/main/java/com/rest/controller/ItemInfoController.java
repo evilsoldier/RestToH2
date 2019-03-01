@@ -3,6 +3,7 @@ package com.rest.controller;
 import com.rest.model.velocity.ItemInfo;
 import com.rest.repository.ItemInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ public class ItemInfoController {
         this.service = service;
     }
 
-    @GetMapping(value = "/efc-iam-rest/{itm_id}", produces = "application/json")
+    @GetMapping(value = "/efc-iam-rest/{itm_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ItemInfo getItemInfo(@PathVariable(value = "itm_id") String itm_id, HttpServletRequest request) {
 
         SecurityContextHolder.getContext().getAuthentication();

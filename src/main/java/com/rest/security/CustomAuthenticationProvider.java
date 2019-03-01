@@ -10,18 +10,16 @@ import java.util.Collections;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
+
     @Override
     public Authentication authenticate(Authentication auth) {
         String username = auth.getName();
-        String password = auth.getCredentials()
-                .toString();
+        String password = auth.getCredentials().toString();
 
-        if ("externaluser".equals(username) && "pass".equals(password)) {
-            return new UsernamePasswordAuthenticationToken
-                    (username, password, Collections.emptyList());
+        if ("externaluser".equals(username) && "pass".equalsIgnoreCase(password)) {
+            return new UsernamePasswordAuthenticationToken(username, password, Collections.emptyList());
         } else {
-            throw new
-                    BadCredentialsException("External system authentication failed");
+            throw new BadCredentialsException("External system authentication failed");
         }
     }
 
