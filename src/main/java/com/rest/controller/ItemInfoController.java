@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/")
@@ -25,7 +25,7 @@ public class ItemInfoController {
     }
 
     @GetMapping(value = "/efc-iam-rest/{itm_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ItemInfo getItemInfo(@PathVariable(value = "itm_id") String itm_id, HttpServletRequest request) {
+    public Optional<ItemInfo> getItemInfo(@PathVariable(value = "itm_id") Long itm_id) {
 
         SecurityContextHolder.getContext().getAuthentication();
         return service.getItemInfoById(itm_id);

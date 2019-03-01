@@ -2,7 +2,8 @@ package com.rest.repository;
 
 import com.rest.model.velocity.ItemInfo;
 
-public interface ItemInfoService {
+import java.util.Optional;
 
-    ItemInfo getItemInfoById(String itm_id);
+public interface ItemInfoService {
+    Optional<ItemInfo> getItemInfoById(Long itm_id);
 }

@@ -14,5 +14,4 @@ public interface ItemService {
     void updateItem(Item item);
 
     Optional<Item> findById(long itemId);
-
 }

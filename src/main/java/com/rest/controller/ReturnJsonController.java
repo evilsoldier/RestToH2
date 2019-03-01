@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import response.JsonResponse;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -35,7 +34,7 @@ public class ReturnJsonController {
 
         Map<String, String> files = new TreeMap<>();
 
-        Map<String, String> form = new TreeMap<>((Comparator<String>) (o1, o2) -> o1.compareTo(o2));
+        Map<String, String> form = new TreeMap<>(String::compareTo);
 
         for (String key : request.getParameterMap().keySet()) {
             form.put(key, request.getParameterMap().get(key)[0]);
@@ -48,15 +47,6 @@ public class ReturnJsonController {
         for (Entry<String, List<String>> mvm : headers.entrySet()) {
             hdrs.put(mvm.getKey(), mvm.getValue().get(0));
         }
-
-        // LinkedHashMap<String, String> json = new LinkedHashMap<>();
-        // json.put("json", "");
-
-        // LinkedHashMap<String, String> origin = new LinkedHashMap<>();
-        // origin.put("origin", headers.getOrigin());
-
-        Map<String, String> url = new TreeMap<>();
-        url.put("url", request.getRequestURL().toString());
 
         // result.set
         result.setArgs(args);
