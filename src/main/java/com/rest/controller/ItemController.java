@@ -7,6 +7,7 @@ import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import response.ResponseMessage;
 
@@ -19,10 +20,14 @@ import java.util.Optional;
  * evilsoldier@abv.bg
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/efc-velocity-service")
 public class ItemController {
 
     private final ItemService itemService;
+
+    private static final String EFC_ID = "efc_id";
+
+    private static final String ITEM_ID = "item_id";
 
     @Autowired
     public ItemController(ItemService itemService) {
@@ -38,8 +43,8 @@ public class ItemController {
      * @param efcId
      * @return item instance of {@link Item}
      */
-    @GetMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}", produces = "application/json")
-    public Item getItem(@PathVariable(value = "item_id") String itemId, @PathVariable(value = "efc_id") String efcId) {
+    @GetMapping(value = "/{item_id}/{efc_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Item getItem(@PathVariable(value = ITEM_ID) String itemId, @PathVariable(value = EFC_ID) String efcId) {
         List<Item> items = itemService.getAllItems();
         HashSet<Efc> efcs = new HashSet<>();
 
@@ -62,8 +67,8 @@ public class ItemController {
      * @param itemId
      * @return item instance of {@link Item}
      */
-    @GetMapping(value = "/efc-velocity-rest/efcs/{item_id}", produces = "application/json")
-    public Optional<Item> getAllEfcs(@PathVariable(value = "item_id") long itemId) {
+    @GetMapping(value = "/efcs/{item_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<Item> getAllEfcs(@PathVariable(value = ITEM_ID) long itemId) {
 
         return itemService.findById(itemId);
     }
@@ -74,8 +79,8 @@ public class ItemController {
      * @param efcId
      * @return listOf items instance of {@link Item}
      */
-    @GetMapping(value = "/efc-velocity-rest/{efc_id}", produces = "application/json")
-    public List<Item> getAllItems(@PathVariable(value = "efc_id") String efcId) {
+    @GetMapping(value = "/{efc_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Item> getAllItems(@PathVariable(value = EFC_ID) String efcId) {
         if ("EFC5".equalsIgnoreCase(efcId)) {
             return itemService.getAllItems();
         }
@@ -89,9 +94,9 @@ public class ItemController {
      * @param efcId
      * @return httpStatus instance of {@link HttpStatus}
      */
-    @DeleteMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}", produces = "application/json")
-    public ResponseMessage deleteItem(@PathVariable(value = "item_id") String itemId,
-                                      @PathVariable(value = "efc_id") String efcId) {
+    @DeleteMapping(value = "/{item_id}/{efc_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseMessage deleteItem(@PathVariable(value = ITEM_ID) String itemId,
+                                      @PathVariable(value = EFC_ID) String efcId) {
         List<Item> items = itemService.getAllItems();
 
         for (Item item : items) {
@@ -117,9 +122,9 @@ public class ItemController {
      * @param velocity
      * @return httpStatus instance of {@link HttpStatus}
      */
-    @PostMapping(value = "/efc-velocity-rest/{item_id}/{efc_id}/{velocity}", produces = "application/json")
-    public ResponseMessage updateItem(@PathVariable(value = "item_id") String itemId,
-                                      @PathVariable(value = "efc_id") String efcId, @PathVariable(value = "velocity") String velocity) {
+    @PostMapping(value = "/{item_id}/{efc_id}/{velocity}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseMessage updateItem(@PathVariable(value = ITEM_ID) String itemId,
+                                      @PathVariable(value = EFC_ID) String efcId, @PathVariable(value = "velocity") String velocity) {
         List<Item> items = itemService.getAllItems();
 
         HashSet<Efc> efcs = new HashSet<>();
@@ -149,8 +154,8 @@ public class ItemController {
         return new ResponseMessage("updated/created item with itemId: " + item.getItemId());
     }
 
-    @GetMapping(value = "/efc-velocity-rest/items/{itemId}", produces = "application/json")
-    public Optional<Item> findItemById(@PathVariable(value = "itemId") long itemId) {
+    @GetMapping(value = "/{item_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<Item> findItemById(@PathVariable(value = ITEM_ID) long itemId) {
         return itemService.findById(itemId);
     }
 }
