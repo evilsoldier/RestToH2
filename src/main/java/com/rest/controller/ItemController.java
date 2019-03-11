@@ -20,7 +20,7 @@ import java.util.Optional;
  * evilsoldier@abv.bg
  */
 @RestController
-@RequestMapping("/efc-velocity-service")
+@RequestMapping("/efc-velocity-service/velocity")
 public class ItemController {
 
     private final ItemService itemService;
