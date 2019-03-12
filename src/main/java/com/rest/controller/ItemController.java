@@ -44,10 +44,10 @@ public class ItemController {
      * @return item instance of {@link Item}
      */
     @GetMapping(value = "/{item_id}/{efc_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Item getItem(@PathVariable(value = ITEM_ID) Long itemId, @PathVariable(value = EFC_ID) String efcId) {
-        Optional<Item> optionalItem = itemService.findById(itemId);
+    public Item getItem(@PathVariable(value = ITEM_ID) String itemId, @PathVariable(value = EFC_ID) String efcId) {
+        Optional<Item> optionalItem = itemService.findById(Long.valueOf(itemId));
 
-        return optionalItem.orElseGet(() -> new Item(itemId, new HashSet<>()));
+        return optionalItem.orElseGet(() -> new Item(Long.valueOf(itemId), new HashSet<>()));
     }
 
     /**
