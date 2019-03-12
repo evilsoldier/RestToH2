@@ -44,21 +44,10 @@ public class ItemController {
      * @return item instance of {@link Item}
      */
     @GetMapping(value = "/{item_id}/{efc_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Item getItem(@PathVariable(value = ITEM_ID) String itemId, @PathVariable(value = EFC_ID) String efcId) {
-        List<Item> items = itemService.getAllItems();
-        HashSet<Efc> efcs = new HashSet<>();
+    public Item getItem(@PathVariable(value = ITEM_ID) Long itemId, @PathVariable(value = EFC_ID) String efcId) {
+        Optional<Item> optionalItem = itemService.findById(itemId);
 
-        for (Item item : items) {
-            if (item.getItemId().equals(itemId)) {
-                for (Efc efc : item.getEfcs()) {
-                    if (efc.getEfc().equals(efcId)) {
-                        efcs.add(efc);
-                        return new Item(itemId, efcs);
-                    }
-                }
-            }
-        }
-        return new Item(itemId, new HashSet<>());
+        return optionalItem.orElseGet(() -> new Item(itemId, new HashSet<>()));
     }
 
     /**
@@ -123,7 +112,7 @@ public class ItemController {
      * @return httpStatus instance of {@link HttpStatus}
      */
     @PostMapping(value = "/{item_id}/{efc_id}/{velocity}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseMessage updateItem(@PathVariable(value = ITEM_ID) String itemId,
+    public ResponseMessage updateItem(@PathVariable(value = ITEM_ID) Long itemId,
                                       @PathVariable(value = EFC_ID) String efcId, @PathVariable(value = "velocity") String velocity) {
         List<Item> items = itemService.getAllItems();
 
