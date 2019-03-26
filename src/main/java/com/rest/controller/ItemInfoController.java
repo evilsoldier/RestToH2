@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/efc-iam-service/iam/")
 public class ItemInfoController {
 
 
@@ -24,10 +24,10 @@ public class ItemInfoController {
         this.service = service;
     }
 
-    @GetMapping(value = "/efc-iam-rest/{itm_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<ItemInfo> getItemInfo(@PathVariable(value = "itm_id") Long itm_id) {
+    @GetMapping(value = "{itemId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<ItemInfo> getItemInfo(@PathVariable(value = "itemId") Long itemId) {
 
         SecurityContextHolder.getContext().getAuthentication();
-        return service.getItemInfoById(itm_id);
+        return service.getItemInfoById(itemId);
     }
 }
