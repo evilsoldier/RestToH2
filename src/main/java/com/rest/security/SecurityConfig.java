@@ -40,14 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/").permitAll()
 //                .antMatchers("/h2_console/**").permitAll();
 
-//        http.csrf().disable();
-//        http.headers().frameOptions().disable();
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
 
-        http.authorizeRequests()
-                .antMatchers("/h2_console/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic();
+//        http.authorizeRequests()
+//                .antMatchers("/h2_console/**").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .httpBasic();
     }
 
     @Bean

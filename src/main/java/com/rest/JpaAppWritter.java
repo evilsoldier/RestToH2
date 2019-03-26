@@ -41,7 +41,7 @@ public class JpaAppWritter implements ApplicationRunner {
         logger.info("Start inserting data into database...");
 
         efcs.add(new Efc("6", "66666"));
-        efcs.add(new Efc("5", "55555"));
+        efcs.add(new Efc("839", "55555"));
         efcs.add(new Efc("4", "44444"));
         efcs.add(new Efc("3", "33333"));
         efcs.add(new Efc("2", "22222"));

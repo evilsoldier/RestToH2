@@ -20,7 +20,7 @@ import java.util.Optional;
  * evilsoldier@abv.bg
  */
 @RestController
-@RequestMapping("/efc-velocity-service/velocity")
+@RequestMapping("/efc-velocity-service/velocity/")
 public class ItemController {
 
     private final ItemService itemService;
@@ -70,7 +70,7 @@ public class ItemController {
      */
     @GetMapping(value = "/{efc_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Item> getAllItems(@PathVariable(value = EFC_ID) String efcId) {
-        if ("EFC5".equalsIgnoreCase(efcId)) {
+        if ("839".equalsIgnoreCase(efcId)) {
             return itemService.getAllItems();
         }
         return null;
