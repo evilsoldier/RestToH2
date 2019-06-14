@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
  * @author Georgi Trendafilov
  * evilsoldier@abv.bg
@@ -20,11 +22,12 @@ public class GivController {
 
     private static final Logger log = LoggerFactory.getLogger(GivController.class);
 
-    private long syncCount = 0L;
+    private AtomicLong syncCount = new AtomicLong(0L);
 
     @PostMapping(value = "/KOHLS_GIV_DSVProcessAvailableInventorySnapShot_Sync", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity postGiv(@RequestBody String sync) throws InterruptedException {
-        log.info("Received: {}", ++syncCount, sync);
+        syncCount.incrementAndGet();
+        log.info("Received: {}", syncCount.get(), sync);
 
         // Sleep 100ms to simulate networking delay
 
@@ -35,7 +38,7 @@ public class GivController {
     @GetMapping(value = "/reset", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity resetCount() {
         log.info("Reset counter");
-        syncCount = 0L;
+        syncCount = new AtomicLong(0L);
         return ResponseEntity.ok().body("OK");
     }
 
