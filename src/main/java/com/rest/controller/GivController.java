@@ -20,16 +20,20 @@ public class GivController {
     private static final Logger log = LoggerFactory.getLogger(GivController.class);
 
     @PostMapping(value = "/KOHLS_GIV_DSVProcessAvailableInventorySnapShot_Sync", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity postGiv(@RequestBody String sync) {
+    public ResponseEntity postGiv(@RequestBody String sync) throws InterruptedException {
         log.info("Received: {}", sync);
 
+        // Sleep 100ms to simulate networking delay
+        Thread.sleep(100L);
         return ResponseEntity.ok().body("OK");
     }
 
     @PostMapping(value = "/KohlsProcessShipConfirmCancelSyncRestService", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity postOms(@RequestBody String sync) {
+    public ResponseEntity postOms(@RequestBody String sync) throws InterruptedException {
         log.info("Received: {}", sync);
 
+        // Sleep 100ms to simulate networking delay
+        Thread.sleep(100L);
         return ResponseEntity.ok().body("OK");
     }
 }
