@@ -26,8 +26,8 @@ public class GivController {
 
     @PostMapping(value = "/KOHLS_GIV_DSVProcessAvailableInventorySnapShot_Sync", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity postGiv(@RequestBody String sync) throws InterruptedException {
-        syncCount.incrementAndGet();
-        log.info("Received: {}", syncCount.get(), sync);
+
+        log.info("Received: {}", syncCount.incrementAndGet(), sync);
 
         // Sleep 100ms to simulate networking delay
 
