@@ -20,7 +20,7 @@ public class ItemInfoServiceImpl implements ItemInfoService {
     }
 
     @Override
-    public Optional<ItemInfo> getItemInfoById(Long itm_id) {
+    public Optional<ItemInfo> getItemInfoById(String itm_id) {
         return repository.findById(itm_id);
     }
 }

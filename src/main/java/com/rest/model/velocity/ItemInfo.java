@@ -14,7 +14,7 @@ public class ItemInfo implements Serializable {
     private static final long serialVersionUID = 2750885479297781200L;
 
     @Id
-    private Long itemID;
+    private String itemID;
     private String description;
     private String unitHeight;
     private String unitHeightUOM;
@@ -45,7 +45,7 @@ public class ItemInfo implements Serializable {
         super();
     }
 
-    public ItemInfo(Long itemID, String description, String unitHeight, String unitHeightUOM, String unitLength,
+    public ItemInfo(String itemID, String description, String unitHeight, String unitHeightUOM, String unitLength,
                     String unitLengthUOM, String unitWeight, String unitWeightUOM, String unitWidth, String unitWidthUOM,
                     String extnBaggable, String extnBreakable, String extnCageItem, String extnIsPlasticGiftCard,
                     String extnShipAlone, String extnColorDesc, String extnClass, String extnDept, String extnStyle,
@@ -79,11 +79,11 @@ public class ItemInfo implements Serializable {
         this.extnHazmatSubClass = extnHazmatSubClass;
     }
 
-    public Long getItemID() {
+    public String getItemID() {
         return itemID;
     }
 
-    public void setItemID(Long itemID) {
+    public void setItemID(String itemID) {
         this.itemID = itemID;
     }
 

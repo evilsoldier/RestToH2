@@ -50,19 +50,24 @@ public class JpaAppWritter implements ApplicationRunner {
         itemRepository.save(new Item(2L, efcs));
         itemRepository.save(new Item(62900001L, efcs));
 
-        itemInfoRepository.save(new ItemInfo(91218652L, "H10 JLO GLOW SET", "pretty high", null, null, null, null,
+        itemInfoRepository.save(new ItemInfo("91218652", "H10 JLO GLOW SET", "pretty high", null, null, null, null,
                 null, null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2",
                 "N", "N", null, null));
 
-        itemInfoRepository.save(new ItemInfo(111L, "H10 JLO GLOW SET", "pretty high", null, null, null, null, null,
+        itemInfoRepository.save(new ItemInfo("00000001", "H10 JLO GLOW SET", "pretty high", null, null, null, null,
+                null, null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2",
+                "N", "N", null, null));
+
+
+        itemInfoRepository.save(new ItemInfo("111", "H10 JLO GLOW SET", "pretty high", null, null, null, null, null,
                 null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2", "N",
                 "N", null, null));
 
-        itemInfoRepository.save(new ItemInfo(222L, "H10 JLO GLOW SET", "pretty high", null, null, null, null, null,
+        itemInfoRepository.save(new ItemInfo("222", "H10 JLO GLOW SET", "pretty high", null, null, null, null, null,
                 null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2", "N",
                 "N", null, null));
 
-        itemInfoRepository.save(new ItemInfo(333L, "H10 JLO GLOW SET", "pretty high", null, null, null, null, null,
+        itemInfoRepository.save(new ItemInfo("333", "H10 JLO GLOW SET", "pretty high", null, null, null, null, null,
                 null, null, null, null, null, "N", "N", "MULTI/NONE", "20", "422", "91218649", "21", "N", "2", "N",
                 "N", null, null));
 

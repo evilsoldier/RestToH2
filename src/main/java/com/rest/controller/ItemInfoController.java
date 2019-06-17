@@ -25,7 +25,7 @@ public class ItemInfoController {
     }
 
     @GetMapping(value = "{itemId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<ItemInfo> getItemInfo(@PathVariable(value = "itemId") Long itemId) {
+    public Optional<ItemInfo> getItemInfo(@PathVariable(value = "itemId") String itemId) {
 
         SecurityContextHolder.getContext().getAuthentication();
         return service.getItemInfoById(itemId);
