@@ -17,7 +17,7 @@ import java.util.Optional;
 public class ItemInfoController {
 
 
-    private ItemInfoService service;
+    private final ItemInfoService service;
 
     @Autowired
     public ItemInfoController(ItemInfoService service) {

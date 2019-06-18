@@ -9,24 +9,25 @@ import java.util.HashSet;
 public class Item implements Serializable {
 
     @Id
-    private Long itemId;
+    private String itemId;
+
     private HashSet<Efc> efcs;
 
     public Item() {
         super();
     }
 
-    public Item(Long itemId, HashSet<Efc> efcs) {
+    public Item(String itemId, HashSet<Efc> efcs) {
         super();
         this.itemId = itemId;
         this.efcs = efcs;
     }
 
-    public Long getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(Long itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 

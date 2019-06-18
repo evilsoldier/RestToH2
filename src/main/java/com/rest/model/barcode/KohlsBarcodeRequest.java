@@ -7,6 +7,7 @@ public class KohlsBarcodeRequest {
 
 
     private String eventId;
+
     private Double kcAmount;
 
     public String getEventId() {

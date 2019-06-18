@@ -3,6 +3,7 @@ package com.rest.model.barcode;
 public class KohlsBarcodeResponse {
 
     private String barcode;
+
     private int pin;
 
     public String getBarcode() {

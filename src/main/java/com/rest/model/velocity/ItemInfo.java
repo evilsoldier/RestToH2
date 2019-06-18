@@ -1,44 +1,65 @@
 package com.rest.model.velocity;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
 public class ItemInfo implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 2750885479297781200L;
 
     @Id
     private String itemID;
+
     private String description;
+
     private String unitHeight;
+
     private String unitHeightUOM;
+
     private String unitLength;
+
     private String unitLengthUOM;
+
     private String unitWeight;
+
     private String unitWeightUOM;
+
     private String unitWidth;
+
     private String unitWidthUOM;
+
     private String extnBaggable;
+
     private String extnBreakable;
+
     private String extnCageItem;
+
     private String extnIsPlasticGiftCard;
+
     private String extnShipAlone;
+
     private String extnColorDesc;
+
     private String extnClass;
+
     private String extnDept;
+
     private String extnStyle;
+
     private String extnSubClass;
+
     private String extnIsVirtualGiftCard;
+
     private String extnRestrictedShipMethod;
+
     private String extnWebExclusiveIndicator;
+
     private String extnWebItem;
+
     private String hazmatClass;
+
     private String extnHazmatSubClass;
 
     public ItemInfo() {

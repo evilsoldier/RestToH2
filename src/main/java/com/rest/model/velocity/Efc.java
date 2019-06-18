@@ -4,9 +4,10 @@ import java.io.Serializable;
 
 public class Efc implements Serializable {
 
-    private static final long serialVersionUID = 3176526533195361970L;
+    private static final long serialVersionUID = 1L;
 
     private String efc;
+
     private String velocity;
 
     public Efc() {

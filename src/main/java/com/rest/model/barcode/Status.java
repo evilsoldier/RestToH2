@@ -3,6 +3,7 @@ package com.rest.model.barcode;
 public class Status {
 
     private String code;
+
     private String message;
 
     public String getCode() {

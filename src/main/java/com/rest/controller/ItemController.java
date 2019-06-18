@@ -8,9 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import response.ResponseMessage;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +53,7 @@ public class ItemController {
     public Item getItem(@PathVariable(value = ITEM_ID) String itemId, @PathVariable(value = EFC_ID) String efcId) {
         Optional<Item> optionalItem = itemService.findById(Long.valueOf(itemId));
 
-        return optionalItem.orElseGet(() -> new Item(Long.valueOf(itemId), new HashSet<>()));
+        return optionalItem.orElseGet(() -> new Item(itemId, new HashSet<>()));
     }
 
     /**
@@ -73,7 +79,7 @@ public class ItemController {
         if ("839".equalsIgnoreCase(efcId)) {
             return itemService.getAllItems();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     /**
@@ -89,11 +95,11 @@ public class ItemController {
         List<Item> items = itemService.getAllItems();
 
         for (Item item : items) {
-            if (item.getItemId().equals(itemId)) {
+            if (item.getItemId().equalsIgnoreCase(itemId)) {
                 for (Efc efc : item.getEfcs()) {
                     if (efc.getEfc().equals(efcId)) {
                         item.getEfcs().remove(efc);
-                        logger.info("Item Efc Velocity deleted: itemid: " + itemId + " efcid: " + efcId);
+                        logger.info("Item Efc Velocity deleted: itemid: {} efcid: {}", itemId, efcId);
                         itemService.updateItem(item);
                         return new ResponseMessage("record deleted with itemId: " + itemId);
                     }
@@ -112,7 +118,7 @@ public class ItemController {
      * @return httpStatus instance of {@link HttpStatus}
      */
     @PostMapping(value = "/{item_id}/{efc_id}/{velocity}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseMessage updateItem(@PathVariable(value = ITEM_ID) Long itemId,
+    public ResponseMessage updateItem(@PathVariable(value = ITEM_ID) String itemId,
                                       @PathVariable(value = EFC_ID) String efcId, @PathVariable(value = "velocity") String velocity) {
         List<Item> items = itemService.getAllItems();
 
@@ -121,7 +127,7 @@ public class ItemController {
         Item item = new Item(itemId, efcs);
 
         for (Item i : items) {
-            if (i.getItemId().equals(itemId)) {
+            if (i.getItemId().equalsIgnoreCase(itemId)) {
                 item = i;
                 efcs = item.getEfcs();
                 for (Efc efc : efcs) {
@@ -139,7 +145,7 @@ public class ItemController {
         efcs.add(new Efc(efcId, velocity));
         item.setEfcs(efcs);
         itemService.updateItem(item);
-        logger.info("Updated/Created itemId: " + itemId);
+        logger.info("Updated/Created itemId: {}", itemId);
         return new ResponseMessage("updated/created item with itemId: " + item.getItemId());
     }
 

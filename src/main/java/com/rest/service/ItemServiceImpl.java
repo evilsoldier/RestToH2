@@ -1,16 +1,13 @@
 package com.rest.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.rest.model.velocity.Item;
 import com.rest.repository.ItemRepository;
 import com.rest.repository.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
+import java.util.List;
+import java.util.Optional;
 
 @Service("itemService")
 public class ItemServiceImpl implements ItemService {
