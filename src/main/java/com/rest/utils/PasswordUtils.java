@@ -14,28 +14,24 @@ import java.security.cert.Certificate;
  */
 public class PasswordUtils {
 
-    private static void getKeyFromKeystore() {
+    public static String getKeyFromKeystore(String pathToFile, String instance, String keystorePassword, String alias) {
+        String plainTextPasword = "";
         try {
-            FileInputStream is = new FileInputStream("C:\\path\\to\\keystore.jceks");
-            KeyStore keystore = KeyStore.getInstance("JCEKS");
-            String password = "keystorePassword";
-            char[] passwd = password.toCharArray();
-            keystore.load(is, passwd);
-            String alias = "alias";
-            Key key = keystore.getKey(alias, passwd);
+            FileInputStream is = new FileInputStream(pathToFile);
+            KeyStore keystore = KeyStore.getInstance(instance);
+            keystore.load(is, keystorePassword.toCharArray());
+            Key key = keystore.getKey(alias, keystorePassword.toCharArray());
             if (key instanceof PrivateKey) {
                 // Get certificate of public key
                 Certificate cert = keystore.getCertificate(alias);
                 // Get public key
                 PublicKey publicKey = cert.getPublicKey();
-
-                String publicKeyString = Base64.encodeBase64String(publicKey
-                        .getEncoded());
-                System.out.println(publicKeyString);
+                plainTextPasword = Base64.encodeBase64String(publicKey.getEncoded());
             }
-            System.out.println(new String(key.getEncoded()));
+            plainTextPasword = new String(key.getEncoded());
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return plainTextPasword;
     }
 }
