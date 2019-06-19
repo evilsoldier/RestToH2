@@ -9,7 +9,7 @@ import java.util.HashSet;
 public class Item implements Serializable {
 
     @Id
-    private String itemId;
+    private Long itemId;
 
     private HashSet<Efc> efcs;
 
@@ -17,17 +17,17 @@ public class Item implements Serializable {
         super();
     }
 
-    public Item(String itemId, HashSet<Efc> efcs) {
+    public Item(Long itemId, HashSet<Efc> efcs) {
         super();
         this.itemId = itemId;
         this.efcs = efcs;
     }
 
-    public String getItemId() {
+    public Long getItemId() {
         return itemId;
     }
 
-    public void setItemId(String itemId) {
+    public void setItemId(Long itemId) {
         this.itemId = itemId;
     }
 

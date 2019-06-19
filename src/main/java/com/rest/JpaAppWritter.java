@@ -46,9 +46,9 @@ public class JpaAppWritter implements ApplicationRunner {
         efcs.add(new Efc("3", "33333"));
         efcs.add(new Efc("2", "22222"));
         efcs.add(new Efc("1", "11111"));
-        itemRepository.save(new Item("1", efcs));
-        itemRepository.save(new Item("2", efcs));
-        itemRepository.save(new Item("62900001", efcs));
+        itemRepository.save(new Item(1L, efcs));
+        itemRepository.save(new Item(2L, efcs));
+        itemRepository.save(new Item(62900001L, efcs));
 
         itemInfoRepository.save(new ItemInfo("91218652", "H10 JLO GLOW SET 1", "pretty high 1", null, null, null, null,
                 null, null, null, null, null, null, "N", "N", "MULTI/NONE 1", "20", "422", "91218641", "21", "N", "2",

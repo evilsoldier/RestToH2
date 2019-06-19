@@ -50,8 +50,8 @@ public class ItemController {
      * @return item instance of {@link Item}
      */
     @GetMapping(value = "/{item_id}/{efc_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Item getItem(@PathVariable(value = ITEM_ID) String itemId, @PathVariable(value = EFC_ID) String efcId) {
-        Optional<Item> optionalItem = itemService.findById(Long.valueOf(itemId));
+    public Item getItem(@PathVariable(value = ITEM_ID) Long itemId, @PathVariable(value = EFC_ID) String efcId) {
+        Optional<Item> optionalItem = itemService.findById(itemId);
 
         return optionalItem.orElseGet(() -> new Item(itemId, new HashSet<>()));
     }
@@ -95,7 +95,7 @@ public class ItemController {
         List<Item> items = itemService.getAllItems();
 
         for (Item item : items) {
-            if (item.getItemId().equalsIgnoreCase(itemId)) {
+            if (item.getItemId().toString().equalsIgnoreCase(itemId)) {
                 for (Efc efc : item.getEfcs()) {
                     if (efc.getEfc().equals(efcId)) {
                         item.getEfcs().remove(efc);
@@ -118,7 +118,7 @@ public class ItemController {
      * @return httpStatus instance of {@link HttpStatus}
      */
     @PostMapping(value = "/{item_id}/{efc_id}/{velocity}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseMessage updateItem(@PathVariable(value = ITEM_ID) String itemId,
+    public ResponseMessage updateItem(@PathVariable(value = ITEM_ID) Long itemId,
                                       @PathVariable(value = EFC_ID) String efcId, @PathVariable(value = "velocity") String velocity) {
         List<Item> items = itemService.getAllItems();
 
@@ -127,7 +127,7 @@ public class ItemController {
         Item item = new Item(itemId, efcs);
 
         for (Item i : items) {
-            if (i.getItemId().equalsIgnoreCase(itemId)) {
+            if (i.getItemId().toString().equalsIgnoreCase(itemId.toString())) {
                 item = i;
                 efcs = item.getEfcs();
                 for (Efc efc : efcs) {
