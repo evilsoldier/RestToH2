@@ -1,5 +1,6 @@
 package com.rest.controller;
 
+import com.rest.config.CustomProperties;
 import com.rest.repository.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,13 @@ public class HtmlController {
 
     private final PersonService personService;
 
+    private final CustomProperties customProperties;
+
     @Autowired
-    private HtmlController(PersonService personService) {
+    private HtmlController(PersonService personService,
+                           CustomProperties customProperties) {
         this.personService = personService;
+        this.customProperties = customProperties;
     }
 
     @GetMapping(value = "/")
@@ -40,5 +45,4 @@ public class HtmlController {
     public String ping() {
         return "pong";
     }
-
 }

@@ -44,3 +44,8 @@ security:
   basic:
     enabled: true
     authorize-mode: NONE
+
+custom:
+  pesho: test
+  "yes": Yes, Sir!
+  !!str no: Nope!
