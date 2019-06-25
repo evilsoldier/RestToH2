@@ -59,8 +59,8 @@ public class JpaAppWritter implements ApplicationRunner {
                 "N", "N", null, null));
 
 
-        itemInfoRepository.save(new ItemInfo("111", "H10 JLO GLOW SET 3", "pretty high 3", null, null, null, null, null,
-                null, null, null, null, null, "N", "Y", "MULTI/NONE 3", "20", "422", "91218643", "21", "N", "2", "N",
+        itemInfoRepository.save(new ItemInfo("00000002", "H10 JLO GLOW SET 3", "pretty high 3", null, null, null, null, null,
+                null, null, null, null, null, "N", "N", "MULTI/NONE 3", "20", "422", "91218643", "21", "N", "2", "N",
                 "N", null, null));
 
         itemInfoRepository.save(new ItemInfo("222", "H10 JLO GLOW SET 4", "pretty high 4", null, null, null, null, null,
