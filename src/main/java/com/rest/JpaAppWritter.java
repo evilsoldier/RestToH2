@@ -51,24 +51,24 @@ public class JpaAppWritter implements ApplicationRunner {
         itemRepository.save(new Item(62900001L, efcs));
 
         itemInfoRepository.save(new ItemInfo("91218652", "H10 JLO GLOW SET 1", "pretty high 1", null, null, null, null,
-                null, null, null, null, null, null, "N", "N", "MULTI/NONE 1", "20", "422", "91218641", "21", "N", "2",
+                null, null, null, null, null, null, "N", "Y", "MULTI/NONE 1", "20", "422", "91218641", "21", "N", "2",
                 "N", "N", null, null));
 
         itemInfoRepository.save(new ItemInfo("00000001", "H10 JLO GLOW SET 2", "pretty high 2", null, null, null, null,
-                null, null, null, null, null, null, "N", "N", "MULTI/NONE 2", "20", "422", "91218642", "21", "N", "2",
+                null, null, null, null, null, null, "N", "Y", "MULTI/NONE 2", "20", "422", "91218642", "21", "N", "2",
                 "N", "N", null, null));
 
 
         itemInfoRepository.save(new ItemInfo("111", "H10 JLO GLOW SET 3", "pretty high 3", null, null, null, null, null,
-                null, null, null, null, null, "N", "N", "MULTI/NONE 3", "20", "422", "91218643", "21", "N", "2", "N",
+                null, null, null, null, null, "N", "Y", "MULTI/NONE 3", "20", "422", "91218643", "21", "N", "2", "N",
                 "N", null, null));
 
         itemInfoRepository.save(new ItemInfo("222", "H10 JLO GLOW SET 4", "pretty high 4", null, null, null, null, null,
-                null, null, null, null, null, "N", "N", "MULTI/NONE 4", "20", "422", "91218644", "21", "N", "2", "N",
+                null, null, null, null, null, "N", "Y", "MULTI/NONE 4", "20", "422", "91218644", "21", "N", "2", "N",
                 "N", null, null));
 
         itemInfoRepository.save(new ItemInfo("333", "H10 JLO GLOW SET 5", "pretty high 5", null, null, null, null, null,
-                null, null, null, null, null, "N", "N", "MULTI/NONE 5", "20", "422", "91218645", "21", "N", "2", "N",
+                null, null, null, null, null, "N", "Y", "MULTI/NONE 5", "20", "422", "91218645", "21", "N", "2", "N",
                 "N", null, null));
 
         personRepository.save(new Person(1L, "Pesho", "Peshkata"));
