@@ -3,7 +3,6 @@ package com.rest.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +17,8 @@ public class OmsController {
 
     private static final Logger log = LoggerFactory.getLogger(OmsController.class);
 
-    @PostMapping(value = "/invoice", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity postInvoice(HttpEntity data) {
+    @PostMapping(value = "/invoice")
+    public ResponseEntity postInvoice(HttpEntity<String> data) {
 
         log.info("Received: {},", data.getBody());
 
