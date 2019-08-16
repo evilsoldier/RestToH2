@@ -37,7 +37,8 @@ public class OmsController {
 
         log.info("Received: {},", data.getBody());
 
-        return ResponseEntity.badRequest().body(omsResponse);
+        //return ResponseEntity.badRequest().body(omsResponse);
+        return ResponseEntity.ok().body("OK");
     }
 
 }
