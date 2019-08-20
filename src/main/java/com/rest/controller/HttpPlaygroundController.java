@@ -3,13 +3,17 @@ package com.rest.controller;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Georgi Trendafilov
@@ -18,6 +22,8 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/httpplayground")
 public class HttpPlaygroundController {
+
+    private Map<String, String> records = new HashMap<>();
 
     @GetMapping()
     @ResponseBody
@@ -36,34 +42,63 @@ public class HttpPlaygroundController {
     }
 
     @PostMapping(value = "/play", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity play(RequestEntity requestEntity) {
+    public ResponseEntity play(RequestEntity request) {
 
         StringBuilder response = new StringBuilder();
         response.append("---------- HEADERS -----------")
                 .append(System.getProperty("line.separator"));
 
-        requestEntity.getHeaders()
+        request.getHeaders()
                 .forEach((key, value) -> response.append(key)
                         .append(" -> ")
                         .append(value)
                         .append(System.getProperty("line.separator")));
         response.append(System.getProperty("line.separator"));
 
-        String[] queries = requestEntity.getUrl().getQuery().split("&");
+        String[] queries;
+        if (request.getUrl().getQuery() != null) {
+            queries = request.getUrl().getQuery().split("&");
 
-        response.append("---------- QUERY -----------")
-                .append(System.getProperty("line.separator"));
+            response.append("---------- QUERY -----------")
+                    .append(System.getProperty("line.separator"));
 
-        Arrays.asList(queries).forEach(query -> response.append(query)
-                .append(System.getProperty("line.separator")));
+            Arrays.asList(queries).forEach(query -> response.append(query)
+                    .append(System.getProperty("line.separator")));
 
-        response.append(System.getProperty("line.separator"));
+            response.append(System.getProperty("line.separator"));
+        }
 
         response.append("---------- BODY -----------")
                 .append(System.getProperty("line.separator"));
-        response.append(requestEntity.getBody());
+        response.append(request.getBody());
 
         return ResponseEntity.ok(response.toString());
     }
 
+    @PutMapping(value = "/play", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity put(RequestEntity request) {
+
+        if (request.getUrl().getQuery() != null) {
+            String[] queries = request.getUrl().getQuery().split("&");
+            Arrays.asList(queries)
+                    .forEach(query -> {
+                        records.put(query.substring(0, query.indexOf("=")), query.substring(query.indexOf("=") +1));
+                    });
+        }
+
+        return ResponseEntity.ok(records);
+    }
+
+    @DeleteMapping(value = "/play", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity delete(RequestEntity request) {
+        if (request.getUrl().getQuery() != null) {
+            String[] queries = request.getUrl().getQuery().split("&");
+            Arrays.asList(queries)
+                    .forEach(query -> {
+                        records.remove(query.substring(0, query.indexOf("=")));
+                    });
+        }
+
+        return ResponseEntity.ok(records);
+    }
 }
