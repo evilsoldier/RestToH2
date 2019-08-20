@@ -103,4 +103,10 @@ public class HttpPlaygroundController {
 
         return ResponseEntity.ok(records);
     }
+
+    @GetMapping(value = "/play", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getRecords() {
+
+        return ResponseEntity.ok(records);
+    }
 }
