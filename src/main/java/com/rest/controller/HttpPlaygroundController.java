@@ -36,7 +36,9 @@ public class HttpPlaygroundController {
                 .append(System.getProperty("line.separator"))
                 .append("with some parameters and see what will happens.")
                 .append(System.getProperty("line.separator"))
-                .append("It consumes JSON, so try to send some valid JSON objects :)");
+                .append("It consumes JSON, so try to send some valid JSON objects :) ")
+        .append("Try to send some query parameters with PUT and take a look at the response body. They should be returned in JSON manner. " +
+                "Try to send some query parameters with DELETE and take a look at the response again. If one of the parameters is the same as which you have sent it should be missing in the response :) ");
 
         return ResponseEntity.ok(response.toString());
     }
