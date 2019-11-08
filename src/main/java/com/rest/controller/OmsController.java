@@ -32,13 +32,13 @@ public class OmsController {
 
         error.setErrorDescription("YFS:Invalid Order");
         error.setErrorUniqueExceptionId("10.218.7.12915628556059440000000003827");
-        error.setErrorCode("YFS10003");
+        error.setErrorCode("YFS100066");
         error.setHttpcode(400);
 
         log.info("Received: {},", data.getBody());
 
-        //return ResponseEntity.badRequest().body(omsResponse);
-        return ResponseEntity.ok().body("OK");
+        return ResponseEntity.badRequest().body(omsResponse);
+       // return ResponseEntity.ok().body("OK");
     }
 
 }
