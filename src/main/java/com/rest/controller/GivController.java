@@ -1,7 +1,10 @@
 package com.rest.controller;
 
+import com.rest.model.oms.Error;
+import com.rest.model.oms.OmsResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -49,5 +53,24 @@ public class GivController {
         // Sleep 100ms to simulate networking delay
         Thread.sleep(100L);
         return ResponseEntity.ok().body("OK");
+    }
+
+    @PostMapping(value = "/KOHLS_GIV_DSVProcessAvailableInventorySnapShot_exception", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity postGivWithException(HttpEntity<String> data) {
+
+        OmsResponse omsResponse = new OmsResponse();
+        Error error = new Error();
+        omsResponse.setErrors(new ArrayList() {{
+            add(error);
+        }});
+
+        error.setErrorDescription("YFS:Invalid Order");
+        error.setErrorUniqueExceptionId("10.218.7.12915628556059440000000003827");
+        error.setErrorCode("YFS100066");
+        error.setHttpcode(400);
+
+        log.info("Received: {},", data.getBody());
+
+        return ResponseEntity.badRequest().body(omsResponse);
     }
 }
