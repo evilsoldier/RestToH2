@@ -16,6 +16,9 @@ public class Error {
     @JsonProperty(value = "ErrorCode")
     private String errorCode;
 
+    @JsonProperty(value = "MoreInfo")
+    private MoreInfo moreInfo;
+
     @JsonProperty(value = "httpcode")
     private int httpcode;
 
@@ -41,6 +44,14 @@ public class Error {
 
     public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
+    }
+
+    public MoreInfo getMoreInfo() {
+        return moreInfo;
+    }
+
+    public void setMoreInfo(MoreInfo moreInfo) {
+        this.moreInfo = moreInfo;
     }
 
     public int getHttpcode() {

@@ -1,6 +1,7 @@
 package com.rest.controller;
 
 import com.rest.model.oms.Error;
+import com.rest.model.oms.MoreInfo;
 import com.rest.model.oms.OmsResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,9 @@ public class OmsController {
             add(error);
         }});
 
+        MoreInfo moreInfo = new MoreInfo();
+        moreInfo.setErrorRelatedMoreInfo("Invalid Order");
+        error.setMoreInfo(moreInfo);
         error.setErrorDescription("YFS:Invalid Order");
         error.setErrorUniqueExceptionId("10.218.7.12915628556059440000000003827");
         error.setErrorCode("YFS100066");
@@ -37,8 +41,7 @@ public class OmsController {
 
         log.info("Received: {},", data.getBody());
 
-       // return ResponseEntity.badRequest().body(omsResponse);
+        // return ResponseEntity.badRequest().body(omsResponse);
         return ResponseEntity.ok().body("OK");
     }
-
 }
