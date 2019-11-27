@@ -2,6 +2,7 @@ package com.rest.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -10,9 +11,76 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class SudokuResolver {
 
+
     public static void main(String[] args) {
         Box[][] matrix = readMatrix();
-        System.out.println(countEmptyBoxes(matrix));
+        int start = countEmptyBoxes(matrix);
+        int emptyBoxes;
+        int count = 0;
+        do {
+            printMatrix(matrix);
+            emptyBoxes = countEmptyBoxes(matrix);
+            checkMatrix(matrix);
+            count++;
+        }
+        while (haveProgress(matrix, emptyBoxes));
+
+        System.out.println("From " + start + " to " + countEmptyBoxes(matrix) + " with " + count + " rows.");
+        printMatrix(matrix);
+    }
+
+    private static boolean isValid(Box[][] matrix) {
+        boolean result = true;
+        for (int i = 0; i < 9; i++) {
+            // horizontal check
+            result = containsOnlyUnique(matrix[i]);
+            if (!result) {
+                return result;
+            }
+
+            // vertical check
+            for (int j = i + 1; j < 9; j++) {
+                result = containsOnlyUnique(getVerticalLine(matrix, j, 0, 9));
+                if (!result) {
+                    return result;
+                }
+            }
+        }
+
+        for (Square square : Box.SQUARES) {
+            for (int i = square.getHorizontalStartPos(); i < square.getHorizontalEndPos(); i++) {
+                // horizontal check
+                result = containsOnlyUnique(matrix[i]);
+                if (!result) {
+                    return result;
+                }
+
+                // vertical check
+                for (int j = square.getVerticalStartPos(); j < square.getVerticalEndPos(); j++) {
+                    result = containsOnlyUnique(getVerticalLine(matrix, j, square.getHorizontalStartPos(), square.getHorizontalEndPos()));
+                    if (!result) {
+                        return result;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private static boolean containsOnlyUnique(Box[] line) {
+        for (int i = 0; i < line.length; i++) {
+            Box currentBox = line[i];
+            for (int j = i + 1; j < line.length; j++) {
+                if (currentBox.getValue() != null && currentBox.getValue().equals(line[j].getValue())) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static void checkMatrix(Box[][] matrix) {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 Box box = matrix[i][j];
@@ -23,28 +91,71 @@ public class SudokuResolver {
                     lineCheck(getVerticalLine(matrix, box.getVerticalPos(), 0, 9), box);
                     // check square
                     checkSquare(matrix, box);
-                    if (box.getValidNumbers().size() > 1) {
-                        System.out.println(box.getHorizontalPos() + " " + box.getVerticalPos() + " " + box.getValidNumbers());
+                    if (box.getValidNumbers().size() == 1) {
+                        box.setValue(box.getValidNumbers().get(0));
                     }
                 }
-                //System.out.print(box);
             }
-            //System.out.println();
         }
-        System.out.println(countEmptyBoxes(matrix));
+    }
+
+    private static boolean haveProgress(Box[][] matrix, int emptyBoxes) {
+        return emptyBoxes > countEmptyBoxes(matrix);
+    }
+
+    private static void bruteForce(Box[][] matrix) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                Box box = matrix[i][j];
+                if (box.getValue() == null) {
+                    box.setValue(box.getValidNumbers().get(new Random().nextInt(box.getValidNumbers().size())));
+                }
+            }
+        }
+    }
+
+    private static Box[][] cloneMatrix(Box[][] matrix) {
+        Box[][] clone = new Box[9][9];
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                clone[i][j] = new Box(matrix[i][j]);
+            }
+        }
+        return clone;
+    }
+
+    private static boolean isCompleted(Box[][] matrix) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (matrix[i][j].getValue() == null) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static void printMatrix(Box[][] matrix) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(matrix[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
     private static void checkSquare(Box[][] matrix, Box currentBox) {
         Square square = currentBox.getSquare();
-        // check horizontal
-        for (int i = square.getVerticalStartPos(); i < square.getVerticalEndPos(); i++) {
-            lineCheck(matrix[i], currentBox);
+        // collect boxes to be checked
+        List<Box> boxesToCheck = new ArrayList<>();
+        for (int i = square.getHorizontalStartPos(); i <= square.getHorizontalEndPos(); i++) {
+            for (int j = square.getVerticalStartPos(); j <= square.getVerticalEndPos(); j++) {
+                boxesToCheck.add(matrix[i][j]);
+            }
         }
-
-        // check vertical
-        for (int i = square.getHorizontalStartPos(); i < square.getVerticalEndPos(); i++) {
-            lineCheck(getVerticalLine(matrix, currentBox.getHorizontalPos(), square.getVerticalStartPos(), square.getVerticalEndPos() + 1), currentBox);
-        }
+        Box[] boxes = new Box[boxesToCheck.size()];
+        lineCheck(boxesToCheck.toArray(boxes), currentBox);
     }
 
     private static Box[] getVerticalLine(Box[][] matrix, int horizontalPos, int start, int end) {
@@ -83,29 +194,6 @@ public class SudokuResolver {
     }
 
     public static void lineCheck(Box[] boxes, Box currentBox) {
-        if (currentBox.getValue() == null) {
-            leftCheck(boxes, currentBox);
-            rightCheck(boxes, currentBox);
-        }
-        if (currentBox.getValidNumbers().size() == 1) {
-            currentBox.setValue(currentBox.getValidNumbers().get(0));
-        }
-    }
-
-    private static void leftCheck(Box[] boxes, Box currentBox) {
-
-        for (Box box : boxes) {
-            for (Integer num : box.getValidNumbers()) {
-                if (num.equals(box.getValue())) {
-                    currentBox.getValidNumbers().remove(num);
-                    break;
-                }
-            }
-        }
-
-    }
-
-    private static void rightCheck(Box[] boxes, Box currentBox) {
         for (Box box : boxes) {
             for (Integer num : box.getValidNumbers()) {
                 if (num.equals(box.getValue())) {
@@ -121,7 +209,7 @@ public class SudokuResolver {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (matrix[i][j].getValue() == null) {
-                    count ++;
+                    count++;
                 }
             }
         }
@@ -130,6 +218,36 @@ public class SudokuResolver {
 }
 
 class Box {
+
+    public static final Square SQUARE_1 = new Square(1, 0, 2, 0, 2);
+
+    public static final Square SQUARE_2 = new Square(2, 0, 2, 3, 5);
+
+    public static final Square SQUARE_3 = new Square(3, 0, 2, 6, 8);
+
+    public static final Square SQUARE_4 = new Square(4, 3, 5, 0, 2);
+
+    public static final Square SQUARE_5 = new Square(5, 3, 5, 3, 5);
+
+    public static final Square SQUARE_6 = new Square(6, 3, 5, 6, 8);
+
+    public static final Square SQUARE_7 = new Square(7, 6, 8, 0, 2);
+
+    public static final Square SQUARE_8 = new Square(8, 6, 8, 3, 5);
+
+    public static final Square SQUARE_9 = new Square(9, 6, 8, 6, 8);
+
+    public static final List<Square> SQUARES = new ArrayList() {{
+        add(SQUARE_1);
+        add(SQUARE_2);
+        add(SQUARE_3);
+        add(SQUARE_4);
+        add(SQUARE_5);
+        add(SQUARE_6);
+        add(SQUARE_7);
+        add(SQUARE_8);
+        add(SQUARE_9);
+    }};
 
     private Integer value;
 
@@ -140,6 +258,14 @@ class Box {
     private Square square;
 
     private List<Integer> validNumbers;
+
+    public Box(Box currentBox) {
+        this.horizontalPos = currentBox.getHorizontalPos();
+        this.verticalPos = currentBox.getVerticalPos();
+        this.value = currentBox.getValue() == null ? null : new Integer(currentBox.getValue());
+        this.square = currentBox.getSquare();
+        this.validNumbers = new ArrayList<>(currentBox.getValidNumbers());
+    }
 
     public Box(int horizontalPos, int verticalPos, String boxString) {
         this.horizontalPos = horizontalPos;
@@ -167,34 +293,27 @@ class Box {
     }
 
     private Square getSquare(int horizontalPos, int verticalPos) {
-        if (horizontalPos <= 2 && verticalPos <= 2) {
-            return new Square(1, 0, 2, 0, 2);
+        if (horizontalPos < 3 && verticalPos < 3) {
+            return SQUARE_1;
+        } else if (horizontalPos < 3 && verticalPos < 6) {
+            return SQUARE_2;
+        } else if (horizontalPos < 3 && verticalPos < 9) {
+            return SQUARE_3;
+        } else if (horizontalPos < 6 && verticalPos < 3) {
+            return SQUARE_4;
+        } else if (horizontalPos < 6 && verticalPos < 6) {
+            return SQUARE_5;
+        } else if (horizontalPos < 6 && verticalPos < 9) {
+            return SQUARE_6;
+        } else if (horizontalPos < 9 && verticalPos < 3) {
+            return SQUARE_7;
+        } else if (horizontalPos < 9 && verticalPos < 6) {
+            return SQUARE_8;
+        } else if (horizontalPos < 9 && verticalPos < 9) {
+            return SQUARE_9;
+        } else {
+            throw new RuntimeException("Bad positions: " + horizontalPos + " " + verticalPos);
         }
-        if (horizontalPos <= 5 && verticalPos <= 2) {
-            return new Square(2, 3, 5, 0, 2);
-        }
-        if (horizontalPos <= 8 && verticalPos <= 2) {
-            return new Square(3, 6, 8, 0, 2);
-        }
-        if (horizontalPos <= 2 && verticalPos <= 5) {
-            return new Square(4, 0, 2, 3, 5);
-        }
-        if (horizontalPos <= 5 && verticalPos <= 5) {
-            return new Square(5, 3, 5, 3, 5);
-        }
-        if (horizontalPos <= 8 && verticalPos <= 5) {
-            return new Square(6, 6, 8, 3, 5);
-        }
-        if (horizontalPos <= 2 && verticalPos <= 8) {
-            return new Square(7, 0, 2, 6, 8);
-        }
-        if (horizontalPos <= 5 && verticalPos <= 8) {
-            return new Square(8, 3, 5, 6, 8);
-        }
-        if (horizontalPos <= 8 && verticalPos <= 8) {
-            return new Square(9, 6, 8, 6, 8);
-        }
-        throw new RuntimeException("Bad positions: " + horizontalPos + " " + verticalPos);
     }
 
     public Integer getValue() {
