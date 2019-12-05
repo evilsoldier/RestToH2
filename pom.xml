@@ -77,6 +77,17 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.ancientprogramming.fixedformat4j</groupId>
+            <artifactId>fixedformat4j</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ffpojo</groupId>
+            <artifactId>ffpojo</artifactId>
+            <version>1.0</version>
+        </dependency>
+
     </dependencies>
     <profiles>
         <profile>
