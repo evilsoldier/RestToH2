@@ -3,6 +3,7 @@ package com.rest.controller;
 import com.rest.model.oms.Error;
 import com.rest.model.oms.MoreInfo;
 import com.rest.model.oms.OmsResponse;
+import com.rest.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -49,7 +50,7 @@ public class GivController {
 
     @PostMapping(value = "/KohlsProcessShipConfirmCancelSyncRestService", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity postOms(@RequestBody String sync) throws InterruptedException {
-        log.info("Received: {}", sync);
+        log.info("Received: {}", JsonUtils.toJson(sync));
 
         // Sleep 100ms to simulate networking delay
         Thread.sleep(100L);
